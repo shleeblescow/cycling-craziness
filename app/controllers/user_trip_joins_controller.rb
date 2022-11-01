@@ -1,0 +1,2 @@
+class UserTripJoinsController < ApplicationController
+end

@@ -83,6 +83,7 @@ GEM
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     erubi (1.11.0)
+    ffi (1.15.3)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -91,6 +92,9 @@ GEM
     irb (1.4.2)
       reline (>= 0.3.0)
     jsonapi-renderer (0.2.2)
+    listen (3.5.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -148,8 +152,12 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    rb-fsevent (0.11.0)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
     reline (0.3.1)
       io-console (~> 0.5)
+    spring (2.1.1)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -168,9 +176,11 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
+  listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
+  spring
   tzinfo-data
 
 RUBY VERSION
