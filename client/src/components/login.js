@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-// import {useHistory} from 'react-router-dom'
 
 
 function Login({onUpdateUser}) {
     
-    //const history = useHistory()
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         username:'',
@@ -32,7 +30,6 @@ function Login({onUpdateUser}) {
                 res.json().then(user => {
                     onUpdateUser(user)
                     navigate('/browsetrips')
-                    // history.push(`/users/${user.id}`)
                 })
             }else {
                 res.json().then(json => setErrors(json.errors))

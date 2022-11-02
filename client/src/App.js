@@ -45,7 +45,6 @@ function App() {
     })
   }
 
-  console.log(allTrips)
 
   const updateUser = (user) => setCurrentUser(user)
 
@@ -53,7 +52,7 @@ function App() {
 
   return (
     <Router>
-      <Routes>
+      <Routes>  
           <Route exact path="/" element={
             <Login
               onUpdateUser={updateUser}
@@ -75,6 +74,7 @@ function App() {
             <Browse
               allTrips={allTrips}
               fetchTrips={fetchTrips}
+              currentUser={currentUser}
             />
           }/>
 

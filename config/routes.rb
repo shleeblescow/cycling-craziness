@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   delete '/logout', to:'sessions#delete' 
   get '/authorized_user', to: 'users#show'
 
+  get '/createdtrips', to:'users#createdtrips'
+  get '/joinedtrips', to:'users#joinedtrips'
 
   # get '*path',
   #     to: 'fallback#index',

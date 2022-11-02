@@ -15,6 +15,16 @@ class UsersController < ApplicationController
         render json: user, status: :created
     end
 
+    def createdtrips
+        created_trips = Trip.where(creator_id: @current_user.id)
+        render json: created_trips
+    end
+
+    def joinedtrips
+        joined_trips = @current_user['trips']
+        render json: joined_trips, include: ['trips']
+    end
+
     private
 
     def user_params

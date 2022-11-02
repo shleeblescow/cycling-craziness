@@ -4,7 +4,7 @@ import {v4 as uuid} from "uuid";
 
 import RenderTripCard from './renderTripCard';
 
-export default function Browse({ allTrips, fetchTrips }){
+export default function Browse({ allTrips, fetchTrips, currentUser }){
 
     const navigate = useNavigate();
 
@@ -19,6 +19,12 @@ export default function Browse({ allTrips, fetchTrips }){
         .then(navigate('/'))
     }
 
+    function moreNavDrama() {
+        navigate(`/users/${currentUser.id}`)
+    }
+
+    console.log(currentUser)
+
 
 
     return(
@@ -28,6 +34,10 @@ export default function Browse({ allTrips, fetchTrips }){
 
             <button onClick={handleSignout}>
                 get out of here GROSS
+            </button>
+
+            <button onClick={moreNavDrama}>
+                let me look at how cool I am, see me thru their eyes
             </button>
 
             <br/><br/>

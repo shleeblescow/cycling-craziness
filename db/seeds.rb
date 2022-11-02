@@ -85,4 +85,30 @@ t2 = Trip.create(
         love to find company to explore this epic landscape!  Mostly camping but htought it would be fun to stay in hostels when psosibel!"
 )
 
+j1 = UserTripJoin.create(
+    user_id: u1.id,
+    trip_id: t1.id 
+)
+
+j2 = UserTripJoin.create(
+    user_id: u2.id,
+    trip_id: t1.id 
+)
+
+j3 = UserTripJoin.create(
+    user_id: u3.id,
+    trip_id: t1.id 
+)
+
+j4 = UserTripJoin.create(
+    user_id: u4.id,
+    trip_id: t1.id 
+)
+
+j5 = UserTripJoin.create(
+    user_id: u4.id,
+    trip_id: t2.id 
+)
+
+
 puts "thats all you get stoopid"
