@@ -30,7 +30,7 @@ function Login({onUpdateUser}) {
         .then(res => {
             if(res.ok){
                 res.json().then(user => {
-                    //onUpdateUser(user)
+                    onUpdateUser(user)
                     navigate('/browsetrips')
                     // history.push(`/users/${user.id}`)
                 })

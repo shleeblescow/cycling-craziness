@@ -16,7 +16,7 @@ function App() {
   //const [productions, setProductions] = useState([])
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState(false)
-
+  const [allTrips, setAllTrips] = useState([])
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -25,11 +25,27 @@ function App() {
         res.json()
         .then((user) => {
           updateUser(user);
-          //fetchProductions()
+          fetchTrips()
         });
       }
     })
   },[])
+
+  const fetchTrips = () => {
+    fetch('/trips')
+    .then(res => {
+      if(res.ok){
+        res.json().then((trips) => { 
+          setAllTrips(trips)
+
+      })
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
+
+  console.log(allTrips)
 
   const updateUser = (user) => setCurrentUser(user)
 
@@ -40,12 +56,13 @@ function App() {
       <Routes>
           <Route exact path="/" element={
             <Login
+              onUpdateUser={updateUser}
               //onUpdateUser={(user) => updateUser(user)}
             />
           }/>
          <Route exact path="/signup" element={
             <Signup 
-              onUpdateUser={(user) => updateUser(user)}
+              onUpdateUser={updateUser}
             />
           }/>
           <Route exact path="/about" element={
@@ -53,21 +70,26 @@ function App() {
               // whatever props
             />
           }/>
+
           <Route exact path="/browsetrips" element={
             <Browse
-              // whatever props
+              allTrips={allTrips}
+              fetchTrips={fetchTrips}
             />
           }/>
+
           <Route exact path="/browsetrips/:id" element={
             <TripDeetsPage
-              // whatever props
+              allTrips={allTrips}
             />
           }/>
+        
          <Route exact path="/browsetrips/create" element={
             <PostTrip
               // whatever props
             />
           }/>
+
          <Route exact path="/users/:id" element={
             <Profile
               // whatever props
@@ -83,3 +105,5 @@ function App() {
 
 export default App;
 
+// conditional routing -> allTrips ? good route : alt
+// encase the route in {allTrips &&} 
