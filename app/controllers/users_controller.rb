@@ -21,8 +21,8 @@ class UsersController < ApplicationController
     end
 
     def joinedtrips
-        joined_trips = @current_user['trips']
-        render json: joined_trips, include: ['trips']
+        joined_trips = @current_user.trips
+        render json: joined_trips
     end
 
     private
