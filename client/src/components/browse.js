@@ -23,7 +23,11 @@ export default function Browse({ allTrips, fetchTrips, currentUser }){
         navigate(`/users/${currentUser.id}`)
     }
 
-    console.log(currentUser)
+    function andMoreNavDrama() {
+        navigate("/browsetrips/create")
+    }
+
+    //console.log(currentUser)
 
 
 
@@ -36,8 +40,16 @@ export default function Browse({ allTrips, fetchTrips, currentUser }){
                 get out of here GROSS
             </button>
 
+            <br/><br/>
+
             <button onClick={moreNavDrama}>
                 let me look at how cool I am, see me thru their eyes
+            </button>
+
+            <br/><br/>
+
+            <button onClick={andMoreNavDrama}>
+                post a trip
             </button>
 
             <br/><br/>

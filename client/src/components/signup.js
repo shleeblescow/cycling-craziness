@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-// import {useHistory} from 'react-router-dom'
+import EditProfileForm from './editProfileForm';
 
 export default function SignUp({onUpdateUser}) {
     
-    // const history = useHistory()
+    const [isSaddled, setIsSaddled] = useState(false)
+    const [userToPass, setUserToPass] = useState({})
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         name: '',
@@ -33,14 +34,17 @@ export default function SignUp({onUpdateUser}) {
                 res.json().then(user => {
                     console.log(`${user.username} is logged in hell yeah bruuther`)
                     onUpdateUser(user)
-                    navigate('/browsetrips')
-                    // history.push(`/users/${user.id}`)
+                    setUserToPass(user)
+                    setIsSaddled(() => !isSaddled)
                 })
             }else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }
         })
-       
+    }
+
+    function handleDoneEditing() {
+        navigate('/browsetrips')
     }
 
     const handleChange = (e) => {
@@ -67,35 +71,25 @@ export default function SignUp({onUpdateUser}) {
          Password
         </label>
         <input type='password' name='password' value={password} onChange={handleChange} />
-
-        {/* <label>
-         Age
-        </label>
-        <input type='number' name='name' value={name} onChange={handleChange} />
-       
-        <label>
-         Hometown/Location
-        </label>
-        <input type='text' name='name' value={name} onChange={handleChange} />
-       
-        <label>
-         About You
-        </label>
-        <input type='text' name='name' value={name} onChange={handleChange} />
-       
-        <label>
-         How do you like to Bikepack?
-        </label>
-        <input type='text' name='name' value={name} onChange={handleChange} />
-       
-        <label>
-         Name
-        </label>
-        <input type='text' name='name' value={name} onChange={handleChange} /> */}
        
         <input type='submit' value='Sign up!' />
       </form>
       {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
+
+        <div>
+            {
+                isSaddled ?
+                <div>
+                <h4>change your entire identity</h4>
+                <EditProfileForm
+                    currentUser={userToPass}
+                    onDoneEditing={handleDoneEditing}
+                />
+                </div>
+                :
+                <></>
+            }   
+        </div>
         </>
     )
 }

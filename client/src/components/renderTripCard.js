@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RenderTripCard({ thisTrip, onButtonDrama }) {
 
-    //const navigate = useNavigate();
-
     return (
         <>      
             <div>

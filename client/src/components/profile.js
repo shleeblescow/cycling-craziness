@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import EditProfileForm from './editProfileForm';
+import RenderTripCard from './renderTripCard';
+import {v4 as uuid} from "uuid";
 
 export default function Profile({currentUser}){
 
     const navigate = useNavigate();
 
+    console.log(currentUser)
+
     // might have to push these up later but chillin for now i think
     const [joinedTrips, setJoinedTrips] = useState([])
     const [createdTrips, setCreatedTrips] = useState([])
+    const [isClicked, setIsClicked] = useState(false)
 
     useEffect(() => {
         fetch('/joinedtrips')
@@ -42,20 +48,87 @@ export default function Profile({currentUser}){
         .then(navigate('/'))
     }
 
-    // console.log(createdTrips)
-    // console.log(joinedTrips)
+    function navDrama(){
+        navigate('/browsetrips')
+    }
 
+    function seeFormDrama(){
+        setIsClicked(() => !isClicked)
+    }
+
+    function handleDoneEditing() {
+        setIsClicked(() => !isClicked)
+    }
+
+    function andMoreNavDrama() {
+        navigate("/browsetrips/create")
+    }
 
 
     return(
+        <>
 
-        <div>
-            pls jsut leave
-            <p>{currentUser.username}</p>
-            <button onClick={handleSignout}>
-                get out of here GROSS
+            <div>
+                pls jsut leave
+                <h1>{currentUser.username}</h1>
+                <button onClick={navDrama}>
+                    {'<~'} nvm take me back to the other trips
+                </button>
+                <br/><br/>
+                <button onClick={handleSignout}>
+                    get out of here GROSS
+                </button>
+            </div>
+
+            <br/><br/>
+
+            <button onClick={andMoreNavDrama}>
+                post a trip
             </button>
-        </div>
+
+            <br/><br/>
+
+            <button onClick={seeFormDrama}>
+                    pls let me change my identity
+            </button>
+
+            {isClicked ?
+                <div>
+                    <h4>change your entire identity</h4>
+                    <EditProfileForm
+                        currentUser={currentUser}
+                        onDoneEditing={handleDoneEditing}
+                    />
+                </div>
+                :
+                <></>
+            }
+
+            <div>
+                <h2>my lil trips i made go me</h2>
+                {createdTrips.map((eachTrip) => 
+                <RenderTripCard
+                    key={uuid()} 
+                    thisTrip={eachTrip}
+                    onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
+                />
+            )}
+            </div>
+
+            <br/>
+
+            <div>
+                <h2>trips im totally crashing</h2>
+                {joinedTrips.map((eachTrip) => 
+                <RenderTripCard
+                    key={uuid()} 
+                    thisTrip={eachTrip}
+                    onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
+                />
+            )}
+            </div>
+
+        </>
 
 
 

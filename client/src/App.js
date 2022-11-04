@@ -56,7 +56,6 @@ function App() {
           <Route exact path="/" element={
             <Login
               onUpdateUser={updateUser}
-              //onUpdateUser={(user) => updateUser(user)}
             />
           }/>
          <Route exact path="/signup" element={
@@ -69,7 +68,6 @@ function App() {
               // whatever props
             />
           }/>
-
           <Route exact path="/browsetrips" element={
             <Browse
               allTrips={allTrips}
@@ -77,27 +75,22 @@ function App() {
               currentUser={currentUser}
             />
           }/>
-
           <Route exact path="/browsetrips/:id" element={
             <TripDeetsPage
               allTrips={allTrips}
-            />
-          }/>
-        
-         <Route exact path="/browsetrips/create" element={
-            <PostTrip
-              // whatever props
-            />
-          }/>
-
-         <Route exact path="/users/:id" element={
-            <Profile
-              // whatever props
               currentUser={currentUser}
             />
           }/>
-    
-
+         <Route exact path="/browsetrips/create" element={
+            <PostTrip
+              currentUser={currentUser}
+            />
+          }/>
+          <Route exact path="/users/:id" element={
+            <Profile
+              currentUser={currentUser}
+            />
+          }/>
       </Routes>
     </Router>
   );

@@ -9,6 +9,12 @@ class UsersController < ApplicationController
         render json: User.all
     end
 
+    def update
+        user = User.find(params[:id])
+        user.update!(user_params)
+        render json: user, status: :accepted
+    end
+
     def create
         user = User.create!(user_params)
         session[:user_id] = user.id
@@ -21,7 +27,7 @@ class UsersController < ApplicationController
     end
 
     def joinedtrips
-        joined_trips = @current_user.trips
+        joined_trips = @current_user.trips.where.not(creator_id: @current_user.id)
         render json: joined_trips
     end
 
