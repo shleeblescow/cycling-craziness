@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function TripForm({currentUser}) {
+export default function TripForm({currentUser, onClickDrama}) {
     
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ export default function TripForm({currentUser}) {
                 res.json().then(tripStuff => {
                     console.log(`${tripStuff.name} is gooooiiinnngggg be sick`)
                     navigate('/browsetrips')
-
+                    onClickDrama()
 
                 })
             }else {
@@ -66,7 +66,7 @@ export default function TripForm({currentUser}) {
 
     return (
         <> 
-        <div>make a trip but no one is gonna sign up</div>
+        <div>trip info but no one is gonna sign up</div>
 
         <br/><br/>
 

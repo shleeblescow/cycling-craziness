@@ -12,6 +12,7 @@ export default function TripDeetsPage({currentUser}){
     const [trip, setTrip] = useState({})
     const [attendees, setAttendees] = useState([])
     const [organizer, setOrganizer] = useState({})
+    const [isClicked, setIsClicked] = useState(false)
 
     useEffect(()=>{
         fetch(`/trips/${params.id}`)
@@ -40,10 +41,8 @@ export default function TripDeetsPage({currentUser}){
         navigate('/browsetrips')
     }
 
-    function editTripDrama() {
-        <TripForm
-            currentUser={currentUser}
-        />
+    function clickDrama() {
+        setIsClicked(() => !isClicked)
     }
 
     function joinTripDrama() {
@@ -112,10 +111,23 @@ export default function TripDeetsPage({currentUser}){
 
                 <div>
                     {trip.creator_id == currentUser.id ?
-                    <div>
-                        <button onClick={editTripDrama}>
-                                edit trip
-                        </button>
+                        <div>
+                            <button onClick={clickDrama}>
+                                    edit trip
+                            </button>
+                            <div>
+                                {
+                                    isClicked ?
+                                    <div>
+                                        <TripForm
+                                            currentUser={currentUser}
+                                            onClickDrama={clickDrama}
+                                        />
+                                    </div>
+                                    :
+                                    <></>
+                                }   
+                            </div>
                     </div>
                     :
                     <div>
