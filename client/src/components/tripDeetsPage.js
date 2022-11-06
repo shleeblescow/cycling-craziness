@@ -30,17 +30,6 @@ export default function TripDeetsPage({currentUser}){
         })
     },[])
 
-    function handleSignout(){
-        fetch('/logout', {
-            method: 'DELETE',
-        })
-        .then(navigate('/'))
-    }
-
-    function navDrama(){
-        navigate('/browsetrips')
-    }
-
     function clickDrama() {
         setIsClicked(() => !isClicked)
     }
@@ -55,18 +44,7 @@ export default function TripDeetsPage({currentUser}){
 
         <div>
 
-
             you? youre gonna go on this trip?  yyeaaahhhh right buckaroo lmaooooooo
-            <button onClick={handleSignout}>
-                get out of here GROSS
-            </button>
-
-            <br/><br/><br/>
-
-            <button onClick={navDrama}>
-                {'<~'} nvm take me back to the other trips
-            </button>
-
 
             <br/><br/><br/>
 

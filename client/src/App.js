@@ -8,12 +8,12 @@ import About from "./components/about";
 import TripDeetsPage from "./components/tripDeetsPage";
 import PostTrip from "./components/postTrip";
 import Profile from "./components/profile";
+import Navbar from "./components/navbar";
 
 
 
 function App() {
 
-  //const [productions, setProductions] = useState([])
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState(false)
   const [allTrips, setAllTrips] = useState([])
@@ -52,6 +52,17 @@ function App() {
 
   return (
     <Router>
+
+      {currentUser ?
+          <Navbar
+            currentUser={currentUser}
+          />
+          :
+          <h2>{"log in to get dirty (and flirty??)"}</h2>
+      }
+
+      <br/>
+
       <Routes>  
           <Route exact path="/" element={
             <Login

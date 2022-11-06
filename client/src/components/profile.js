@@ -8,8 +8,6 @@ export default function Profile({currentUser}){
 
     const navigate = useNavigate();
 
-    console.log(currentUser)
-
     // might have to push these up later but chillin for now i think
     const [joinedTrips, setJoinedTrips] = useState([])
     const [createdTrips, setCreatedTrips] = useState([])
@@ -41,16 +39,16 @@ export default function Profile({currentUser}){
 
     },[])
 
-    function handleSignout(){
-        fetch('/logout', {
-            method: 'DELETE',
-        })
-        .then(navigate('/'))
-    }
+    // function handleSignout(){
+    //     fetch('/logout', {
+    //         method: 'DELETE',
+    //     })
+    //     .then(navigate('/'))
+    // }
 
-    function navDrama(){
-        navigate('/browsetrips')
-    }
+    // function navDrama(){
+    //     navigate('/browsetrips')
+    // }
 
     function seeFormDrama(){
         setIsClicked(() => !isClicked)
@@ -60,9 +58,9 @@ export default function Profile({currentUser}){
         setIsClicked(() => !isClicked)
     }
 
-    function andMoreNavDrama() {
-        navigate("/browsetrips/create")
-    }
+    // function andMoreNavDrama() {
+    //     navigate("/browsetrips/create")
+    // }
 
 
     return(
@@ -71,20 +69,7 @@ export default function Profile({currentUser}){
             <div>
                 pls jsut leave
                 <h1>{currentUser.username}</h1>
-                <button onClick={navDrama}>
-                    {'<~'} nvm take me back to the other trips
-                </button>
-                <br/><br/>
-                <button onClick={handleSignout}>
-                    get out of here GROSS
-                </button>
             </div>
-
-            <br/><br/>
-
-            <button onClick={andMoreNavDrama}>
-                post a trip
-            </button>
 
             <br/><br/>
 

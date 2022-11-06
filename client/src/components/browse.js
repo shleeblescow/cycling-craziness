@@ -12,45 +12,11 @@ export default function Browse({ allTrips, fetchTrips, currentUser }){
         fetchTrips()
     },[])
 
-    function handleSignout(){
-        fetch('/logout', {
-            method: 'DELETE',
-        })
-        .then(navigate('/'))
-    }
-
-    function moreNavDrama() {
-        navigate(`/users/${currentUser.id}`)
-    }
-
-    function andMoreNavDrama() {
-        navigate("/browsetrips/create")
-    }
-
-    //console.log(currentUser)
-
 
 
     return(
 
         <div>
-
-
-            <button onClick={handleSignout}>
-                get out of here GROSS
-            </button>
-
-            <br/><br/>
-
-            <button onClick={moreNavDrama}>
-                let me look at how cool I am, see me thru their eyes
-            </button>
-
-            <br/><br/>
-
-            <button onClick={andMoreNavDrama}>
-                post a trip
-            </button>
 
             <br/><br/>
 
