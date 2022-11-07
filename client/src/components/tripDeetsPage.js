@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import TripForm from './tripForm';
 
@@ -153,7 +153,10 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
                     <div>
                         <h3>about the organizer</h3>
-                            <p>basics: {organizer.name} - {organizer.hometown} - {organizer.age}</p>
+                            basics: 
+                            <Link to={`/users/${organizer.id}`}>
+                                 {organizer.name} - {organizer.hometown} - {organizer.age}
+                            </Link>
                             <p>style: {organizer.bikepacking_method}</p>
                     </div>
 
@@ -161,8 +164,10 @@ export default function TripDeetsPage({currentUser, allJoins}){
                         <h4>meet the gang ({attendees.length} peep{attendees.length == 1 ? null : "s"} #sendingit)</h4>
                             {attendees.map((peep) =>
                                 <div key={uuid()} >
-                                    <li>{peep.name} - {peep.age} - '{peep.username}'</li>
-                                    <br/>
+                                    <Link to={`/users/${peep.id}`}>
+                                        {peep.name} - {peep.age} - '{peep.username}'
+                                    </Link>
+                                    <br/><br/>
                                 </div>
                             )}
                     </div>
@@ -177,7 +182,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                             <button onClick={clickDrama}>
                                     edit trip
                             </button>
-                            <br/>
+                            <br/><br/>
                             <button onClick={deleteTripDrama}>
                                     delete trip
                             </button>

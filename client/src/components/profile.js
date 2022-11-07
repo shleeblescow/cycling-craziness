@@ -31,28 +31,6 @@ export default function Profile({currentUser}){
                 console.log('loser')
             }
         })
-        // fetch('/joinedtrips')
-        // .then((res) => {
-        //     if (res.ok) {
-        //         res.json()
-        //         .then((joinedTrips) => {
-        //             setJoinedTrips(joinedTrips)
-        //             console.log(joinedTrips)
-        //         })
-        //     } else {
-        //         console.log('loser')
-        //     }
-        // })
-        // fetch('/createdtrips')
-        // .then((res) => {
-        //     if (res.ok) {
-        //         res.json()
-        //         .then((createdTrips) => {
-        //             setCreatedTrips(createdTrips)
-        //             console.log(createdTrips)
-        //         })
-        //     }
-        // })
     },[])
 
     const fetchJoinedTrips = (thisUserPage) => {
@@ -95,18 +73,20 @@ export default function Profile({currentUser}){
         <>
 
             <div>
-                pls jsut leave
-                <h1>{currentUser.username}</h1>
+                <h1>{thisUserPage.username}</h1>
+                <p>name: {thisUserPage.name}</p>
+                <p>hometwon: {thisUserPage.hometown}</p>
+                <p>age: {thisUserPage.age}</p>
+                <p>what im all about in life: {thisUserPage.bio}</p>
+                <p>what im all about in bikepacking: {thisUserPage.bikepacking_method}</p>
             </div>
-
-            <br/><br/>
 
             {currentUser.id == thisUserPage.id ?
                 <button onClick={seeFormDrama}>
                         pls let me change my identity
                 </button>
             :
-                <p>howdy to this personsn page</p>
+                <></>
             
             }
 
@@ -124,28 +104,40 @@ export default function Profile({currentUser}){
 
             <div>
                 <h2>my lil trips i made go me</h2>
-                {createdTrips.map((eachTrip) => 
-                <RenderTripCard
-                    key={uuid()} 
-                    thisTrip={eachTrip}
-                    onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
-                />
-            )}
+                {createdTrips.length >= 1 ?
+                    <div>
+                    {createdTrips.map((eachTrip) => 
+                        <RenderTripCard
+                            key={uuid()} 
+                            thisTrip={eachTrip}
+                            onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
+                        />
+                    )}
+                    </div>
+                    :
+                    <p>{thisUserPage.username} doesn't currently have any trips they've created!</p>
+                }
             </div>
 
             <br/>
 
+
             <div>
                 <h2>trips im totally crashing</h2>
-                {joinedTrips.map((eachTrip) => 
-                <RenderTripCard
-                    key={uuid()} 
-                    thisTrip={eachTrip}
-                    onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
-                />
-            )}
+                {joinedTrips.length >= 1 ?
+                    <div>
+                        {joinedTrips.map((eachTrip) => 
+                        <RenderTripCard
+                            key={uuid()} 
+                            thisTrip={eachTrip}
+                            onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
+                        />
+                    )}
+                    </div>
+                    :
+                    <p>{thisUserPage.username} doesn't currently have any trips they're crashing'!</p>
+                }
             </div>
-
         </>
 
 
