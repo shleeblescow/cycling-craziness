@@ -61,7 +61,7 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
                 <br/><br/>
 
                 <label>what's you stryle bru</label>
-                <input type='text' name='bikepacking_method' value={formData.image} onChange={handleChange} />
+                <input type='text' name='bikepacking_method' value={formData.bikepacking_method} onChange={handleChange} />
 
                 <br/><br/>
 

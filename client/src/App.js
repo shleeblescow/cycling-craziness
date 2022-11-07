@@ -26,8 +26,8 @@ function App() {
         res.json()
         .then((user) => {
           updateUser(user);
-          fetchTrips()
           fetchJoinsData()
+          fetchTrips()
         });
       }
     })
@@ -39,7 +39,6 @@ function App() {
       if(res.ok){
         res.json().then((trips) => { 
           setAllTrips(trips)
-
       })
       }else {
         res.json().then(data => setErrors(data.error))
@@ -53,7 +52,6 @@ function App() {
       if(res.ok){
         res.json().then((joins) => { 
           setAllJoins(joins)
-
       })
       }else {
         res.json().then(data => setErrors(data.error))
@@ -61,10 +59,7 @@ function App() {
     })
   }
 
-
   const updateUser = (user) => setCurrentUser(user)
-
-  //console.log(currentUser)
 
   return (
     <Router>
@@ -72,6 +67,7 @@ function App() {
       {currentUser ?
           <Navbar
             currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
           />
           :
           <h2>{"log in to get dirty (and flirty??)"}</h2>
@@ -99,6 +95,7 @@ function App() {
             <Browse
               allTrips={allTrips}
               fetchTrips={fetchTrips}
+              fetchJoinsData={fetchJoinsData}
               currentUser={currentUser}
             />
           }/>

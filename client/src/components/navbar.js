@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Navbar({currentUser}) {
+export default function Navbar({setCurrentUser, currentUser}) {
 
     const navigate = useNavigate()
 
@@ -8,6 +8,7 @@ export default function Navbar({currentUser}) {
         fetch('/logout', {
             method: 'DELETE',
         })
+        .then(setCurrentUser(false))
         .then(navigate('/'))
     }
 

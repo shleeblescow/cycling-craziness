@@ -65,7 +65,8 @@ export default function TripDeetsPage({currentUser, allJoins}){
           .then(res => {
               if(res.ok){
                   res.json().then(res => {
-                      console.log(`${currentUser.username} is going to ${trip.location}! stupid bitch`)
+                    setIsAttendee(() => true)
+                    console.log(`${currentUser.username} is going to ${trip.location}! stupid bitch`)
                   })
               }else {
                   res.json().then(json => setErrors(Object.entries(json.errors)))
@@ -75,17 +76,16 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
     // determine if the current user is already part of the trip
     function partOfSquad(data) {
-        console.log('gonna look @', data)
-        console.log('for', currentUser)
         data.users.forEach((attendee) => {
             if (attendee.id == currentUser.id && currentUser.id != trip.creator_id) {
                 setIsAttendee(() => true)
-                console.log('found em', attendee)
             }
         })
     }
 
+    // removes the user from the trip
     function leaveTripDrama() {
+        console.log('all joins', allJoins)
         let deleteID = allJoins.find((join) => join.user_id == currentUser.id && join.trip_id == trip.id).id
         fetch(`/user_trip_joins/${deleteID}`,{
             method:'DELETE'

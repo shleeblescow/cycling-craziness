@@ -9,24 +9,55 @@ export default function PostTrip({currentUser}){
     const [errors, setErrors] = useState([])
 
     console.log(currentUser)
+    //console.log(tripStuff)
 
     function handlePostTrip(tripStuff) {
+
+        console.log(tripStuff)
+        
         fetch(`/trips`,{
             method:'POST',
             headers:{'Content-Type': 'application/json'},
             body:JSON.stringify(tripStuff)
-          })
+        })
           .then(res => {
               if(res.ok){
                   res.json().then(tripStuff => {
                       console.log(`${tripStuff.name} is gooooiiinnngggg be sick`)
-                      navigate('/browsetrips')
+                      makeAJoin(tripStuff)
+                      //navigate('/browsetrips')
                   })
               }else {
                   res.json().then(json => setErrors(Object.entries(json.errors)))
               }
-          })
+        })
     }
+
+    const makeAJoin = (tripStuff) => {
+
+        const joinToPost = {
+            user_id: currentUser.id,
+            trip_id: tripStuff.id
+        }
+
+        fetch(`/user_trip_joins`,{
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(joinToPost)
+        })
+        .then(res => {
+            if(res.ok){
+                res.json().then(res => {
+                    console.log(`${currentUser.username} is going to ${tripStuff.location}! stupid bitch`)
+                    navigate('/browsetrips')
+                })
+            } else {
+                console.log("loser")
+                res.json().then(json => setErrors(Object.entries(json.errors)))
+            }
+        })
+
+        }
 
 
     return(

@@ -4,12 +4,13 @@ import {v4 as uuid} from "uuid";
 
 import RenderTripCard from './renderTripCard';
 
-export default function Browse({ allTrips, fetchTrips, currentUser }){
+export default function Browse({ allTrips, fetchTrips, fetchJoinsData, currentUser }){
 
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchTrips()
+        fetchJoinsData()
     },[])
 
 

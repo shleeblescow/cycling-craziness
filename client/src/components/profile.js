@@ -69,6 +69,10 @@ export default function Profile({currentUser}){
         setIsClicked(() => !isClicked)
     }
 
+    function messageDrama(){
+        console.log("omg we're gonna do action cable!")
+    }
+
     return(
         <>
 
@@ -86,7 +90,9 @@ export default function Profile({currentUser}){
                         pls let me change my identity
                 </button>
             :
-                <></>
+                <button onClick={messageDrama}>
+                    message {thisUserPage.username}
+                </button>
             
             }
 
