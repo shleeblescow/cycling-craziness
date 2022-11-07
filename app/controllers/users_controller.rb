@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
     skip_before_action :authorized_user, only: [:create]
 
-    def show 
-        render json: @current_user, status: :ok
+    # def show 
+    #     render json: @current_user, status: :ok
+    # end
+
+    def show
+        user = User.find(params[:id])
+        render json: user, status: :accepted
     end
-    
+
     def index
         render json: User.all
     end
@@ -21,13 +26,25 @@ class UsersController < ApplicationController
         render json: user, status: :created
     end
 
+    # def createdtrips
+    #     created_trips = Trip.where(creator_id: @current_user.id)
+    #     render json: created_trips
+    # end
+
     def createdtrips
-        created_trips = Trip.where(creator_id: @current_user.id)
+        user = User.find(params[:id])
+        created_trips = Trip.where(creator_id: user.id)
         render json: created_trips
     end
 
+    # def joinedtrips
+    #     joined_trips = @current_user.trips.where.not(creator_id: @current_user.id)
+    #     render json: joined_trips
+    # end
+
     def joinedtrips
-        joined_trips = @current_user.trips.where.not(creator_id: @current_user.id)
+        user = User.find(params[:id])
+        joined_trips = user.trips.where.not(creator_id: user.id)
         render json: joined_trips
     end
 

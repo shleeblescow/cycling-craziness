@@ -64,7 +64,7 @@ function App() {
 
   const updateUser = (user) => setCurrentUser(user)
 
-  console.log(currentUser)
+  //console.log(currentUser)
 
   return (
     <Router>
