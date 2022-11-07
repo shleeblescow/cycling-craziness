@@ -17,6 +17,7 @@ function App() {
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState(false)
   const [allTrips, setAllTrips] = useState([])
+  const [allJoins, setAllJoins] = useState([])
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -26,6 +27,7 @@ function App() {
         .then((user) => {
           updateUser(user);
           fetchTrips()
+          fetchJoinsData()
         });
       }
     })
@@ -37,6 +39,20 @@ function App() {
       if(res.ok){
         res.json().then((trips) => { 
           setAllTrips(trips)
+
+      })
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
+
+  const fetchJoinsData = () => {
+    fetch('/user_trip_joins')
+    .then(res => {
+      if(res.ok){
+        res.json().then((joins) => { 
+          setAllJoins(joins)
 
       })
       }else {
@@ -90,6 +106,7 @@ function App() {
             <TripDeetsPage
               allTrips={allTrips}
               currentUser={currentUser}
+              allJoins={allJoins}
             />
           }/>
          <Route exact path="/browsetrips/create" element={
@@ -108,6 +125,3 @@ function App() {
 }
 
 export default App;
-
-// conditional routing -> allTrips ? good route : alt
-// encase the route in {allTrips &&} 

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import TripForm from './tripForm';
 
-export default function TripDeetsPage({currentUser}){
+export default function TripDeetsPage({currentUser, allJoins}){
 
     const navigate = useNavigate();
     const params = useParams();
@@ -13,7 +13,9 @@ export default function TripDeetsPage({currentUser}){
     const [attendees, setAttendees] = useState([])
     const [organizer, setOrganizer] = useState({})
     const [isClicked, setIsClicked] = useState(false)
-
+    const [isAttendee, setIsAttendee] = useState(false)
+    
+    // get info on the current trip being displayed
     useEffect(()=>{
         fetch(`/trips/${params.id}`)
         .then(res => { 
@@ -22,6 +24,7 @@ export default function TripDeetsPage({currentUser}){
                     setTrip(data)
                     setAttendees(data.users)
                     setOrganizer(data.users.find(peeps => peeps.id == data.creator_id))
+                    partOfSquad(data)
             })
             } else {
                 console.log('error')
@@ -30,13 +33,94 @@ export default function TripDeetsPage({currentUser}){
         })
     },[])
 
+    // edit the trip if it belongs to the current user
+    function handleEditTrip(tripStuff) {
+            fetch(`/trips/${params.id}`,{
+                method:'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body:JSON.stringify(tripStuff)
+            })
+            .then(res => {
+                if(res.ok){
+                    console.log('hellow from an updated state')
+                    clickDrama()
+                } else {
+                //Display errors
+                    res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+                }
+            })
+    }
+
+    // let the current user join a trip if it doesn't belong to them
+    function joinTripDrama() {
+        const joinToPost = {
+            user_id: currentUser.id,
+            trip_id: trip.id
+        }
+        fetch(`/user_trip_joins`,{
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(joinToPost)
+          })
+          .then(res => {
+              if(res.ok){
+                  res.json().then(res => {
+                      console.log(`${currentUser.username} is going to ${trip.location}! stupid bitch`)
+                  })
+              }else {
+                  res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+          })
+    }
+
+    // determine if the current user is already part of the trip
+    function partOfSquad(data) {
+        console.log('gonna look @', data)
+        console.log('for', currentUser)
+        data.users.forEach((attendee) => {
+            if (attendee.id == currentUser.id && currentUser.id != trip.creator_id) {
+                setIsAttendee(() => true)
+                console.log('found em', attendee)
+            }
+        })
+    }
+
+    function leaveTripDrama() {
+        let deleteID = allJoins.find((join) => join.user_id == currentUser.id && join.trip_id == trip.id).id
+        fetch(`/user_trip_joins/${deleteID}`,{
+            method:'DELETE'
+          })
+          .then(res => {
+              if(res.ok){
+                console.log(`${currentUser.username} is ditching to ${trip.trip_name}! stupid bitch`)
+                setIsAttendee(() => false)
+              }else {
+                res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+          })
+    }
+
+    function deleteTripDrama() {
+        fetch(`/trips/${trip.id}`,{
+            method:'DELETE'
+          })
+          .then(res => {
+              if(res.ok){
+                console.log(`${currentUser.username} is deleting ${trip.trip_name}!? stupid bitch`)
+                navigate('/browsetrips')
+              }else {
+                res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+          })
+    }
+
+    // just a little state situation to make condional rendering work
     function clickDrama() {
         setIsClicked(() => !isClicked)
     }
 
-    function joinTripDrama() {
-
-    }
+    // cause state likes to be a lil bitch
+    const cheaterProp = trip
 
     if(errors) return <h1> omg you broke something</h1>
 
@@ -93,13 +177,18 @@ export default function TripDeetsPage({currentUser}){
                             <button onClick={clickDrama}>
                                     edit trip
                             </button>
+                            <br/>
+                            <button onClick={deleteTripDrama}>
+                                    delete trip
+                            </button>
                             <div>
                                 {
                                     isClicked ?
                                     <div>
                                         <TripForm
                                             currentUser={currentUser}
-                                            onClickDrama={clickDrama}
+                                            onClickDrama={(tripStuff) => handleEditTrip(tripStuff)}
+                                            dramaType={cheaterProp}
                                         />
                                     </div>
                                     :
@@ -109,9 +198,15 @@ export default function TripDeetsPage({currentUser}){
                     </div>
                     :
                     <div>
-                        <button onClick={joinTripDrama}>
-                            join trip
-                        </button>
+                        {isAttendee ? 
+                            <button onClick={leaveTripDrama}>
+                                leave trip
+                            </button>
+                            :
+                            <button onClick={joinTripDrama}>
+                                join trip
+                            </button>
+                        }
                     </div>
                     }  
                 </div> 

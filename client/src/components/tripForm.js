@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function TripForm({currentUser, onClickDrama}) {
+export default function TripForm({currentUser, onClickDrama, dramaType}) {
     
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
@@ -19,49 +19,40 @@ export default function TripForm({currentUser, onClickDrama}) {
         about_trip: ''
     })
 
-    const {link, trip_name, location, route_photo, total_mileage, total_vert, daily_mileage, est_total_weeks, departure_city, final_city, departure_month, about_trip} = formData
-    const navigate = useNavigate();
-
-    function onSubmit(e){
-        e.preventDefault()
-        const tripStuff = {
-            "link": link,
-            "trip_name": trip_name,
-            "location": location,
-            "route_photo": route_photo,
-            "total_mileage": total_mileage,
-            "total_vert": total_vert,
-            "daily_mileage": daily_mileage,
-            "est_total_weeks": est_total_weeks,
-            "departure_city": departure_city,
-            "final_city": final_city,
-            "departure_month": departure_month,
-            "about_trip": about_trip,
-            "creator_id": currentUser.id
+    useEffect(() => {
+        if (dramaType == "post") {
+            const {link, trip_name, location, route_photo, total_mileage, total_vert, daily_mileage, est_total_weeks, departure_city, final_city, departure_month, about_trip} = formData
+        } else {
+            setFormData(dramaType)
         }
-       
-        fetch(`/trips`,{
-          method:'POST',
-          headers:{'Content-Type': 'application/json'},
-          body:JSON.stringify(tripStuff)
-        })
-        .then(res => {
-            if(res.ok){
-                res.json().then(tripStuff => {
-                    console.log(`${tripStuff.name} is gooooiiinnngggg be sick`)
-                    navigate('/browsetrips')
-                    onClickDrama()
+    },[])
 
-                })
-            }else {
-                res.json().then(json => setErrors(Object.entries(json.errors)))
-            }
-        })
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+    }
+
+    function onSubmit(e){
+        e.preventDefault()
+        
+        const tripStuff = {
+            "link": formData.link,
+            "trip_name": formData.trip_name,
+            "location": formData.location,
+            "route_photo": formData.route_photo,
+            "total_mileage": formData.total_mileage,
+            "total_vert": formData.total_vert,
+            "daily_mileage": formData.daily_mileage,
+            "est_total_weeks": formData.est_total_weeks,
+            "departure_city": formData.departure_city,
+            "final_city": formData.final_city,
+            "departure_month": formData.departure_month,
+            "about_trip": formData.about_trip,
+            "creator_id": currentUser.id
+        }
+
+        onClickDrama(tripStuff)
     }
 
     return (
@@ -75,84 +66,84 @@ export default function TripForm({currentUser, onClickDrama}) {
         <label>
         Trip Name
         </label>
-        <input type='text' name='trip_name' value={trip_name} onChange={handleChange} />    
+        <input type='text' name='trip_name' value={formData.trip_name} onChange={handleChange} />    
         
         <br/><br/>
 
         <label>
         Link
         </label>  
-        <input type='text' name='link' value={link} onChange={handleChange} />
+        <input type='text' name='link' value={formData.link} onChange={handleChange} />
        
         <br/><br/>
 
         <label>
         Location
         </label>
-        <input type='text' name='location' value={location} onChange={handleChange} />
+        <input type='text' name='location' value={formData.location} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
         Route Photo
         </label>  
-        <input type='text' name='route_photo' value={route_photo} onChange={handleChange} />
+        <input type='text' name='route_photo' value={formData.route_photo} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Total Mileage
         </label>  
-        <input type='integer' name='total_mileage' value={total_mileage} onChange={handleChange} />
+        <input type='integer' name='total_mileage' value={formData.total_mileage} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Total Vert
         </label>  
-        <input type='integer' name='total_vert' value={total_vert} onChange={handleChange} />
+        <input type='integer' name='total_vert' value={formData.total_vert} onChange={handleChange} />
        
        <br/><br/>
 
         <label>
          Daily Mileage
         </label>  
-        <input type='integer' name='daily_mileage' value={daily_mileage} onChange={handleChange} />
+        <input type='integer' name='daily_mileage' value={formData.daily_mileage} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Total Trip Weeks
         </label>  
-        <input type='integer' name='est_total_weeks' value={est_total_weeks} onChange={handleChange} />
+        <input type='integer' name='est_total_weeks' value={formData.est_total_weeks} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Departure City
         </label>  
-        <input type='text' name='departure_city' value={departure_city} onChange={handleChange} />
+        <input type='text' name='departure_city' value={formData.departure_city} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Final City
         </label>  
-        <input type='text' name='final_city' value={final_city} onChange={handleChange} />
+        <input type='text' name='final_city' value={formData.final_city} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          Departure Month
         </label>  
-        <input type='text' name='departure_month' value={departure_month} onChange={handleChange} />
+        <input type='text' name='departure_month' value={formData.departure_month} onChange={handleChange} />
 
         <br/><br/>
 
         <label>
          About the Trip
         </label>  
-        <input type='text' name='about_trip' value={about_trip} onChange={handleChange} />
+        <input type='text' name='about_trip' value={formData.about_trip} onChange={handleChange} />
 
         <br/><br/>
 

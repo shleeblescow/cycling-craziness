@@ -6,7 +6,27 @@ export default function PostTrip({currentUser}){
 
     const navigate = useNavigate();
 
+    const [errors, setErrors] = useState([])
+
     console.log(currentUser)
+
+    function handlePostTrip(tripStuff) {
+        fetch(`/trips`,{
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(tripStuff)
+          })
+          .then(res => {
+              if(res.ok){
+                  res.json().then(tripStuff => {
+                      console.log(`${tripStuff.name} is gooooiiinnngggg be sick`)
+                      navigate('/browsetrips')
+                  })
+              }else {
+                  res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+          })
+    }
 
 
     return(
@@ -21,6 +41,8 @@ export default function PostTrip({currentUser}){
 
             <TripForm 
                 currentUser={currentUser}
+                onClickDrama={(tripStuff) => handlePostTrip(tripStuff)}
+                dramaType={"post"}
             />
 
 
