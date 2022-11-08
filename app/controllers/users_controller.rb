@@ -1,13 +1,8 @@
 class UsersController < ApplicationController
     skip_before_action :authorized_user, only: [:create]
 
-    # def show 
-    #     render json: @current_user, status: :ok
-    # end
-
     def show
-        user = User.find(params[:id])
-        render json: user, status: :accepted
+        render json: current_user, status: :ok
     end
 
     def index
@@ -20,11 +15,19 @@ class UsersController < ApplicationController
         render json: user, status: :accepted
     end
 
+    # def create
+    #     user = User.create!(user_params)
+    #     session[:user_id] = user.id
+    #     # render json: UserSerializer.new(user).serializable_hash[:data][:attributes], status: :created
+    #     render json: user, status: :created
+    # end
+
     def create
         user = User.create!(user_params)
         session[:user_id] = user.id
         render json: user, status: :created
     end
+
 
     # def createdtrips
     #     created_trips = Trip.where(creator_id: @current_user.id)
@@ -53,4 +56,8 @@ class UsersController < ApplicationController
     def user_params
         params.permit(:username, :password, :name, :age, :hometown, :bio, :bikepacking_method)
     end
+
+    # def user_params
+    #     params.permit(:username, :password, :name, :age, :hometown, :bio, :bikepacking_method, :profile_pic)
+    # end
 end

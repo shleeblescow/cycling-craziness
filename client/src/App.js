@@ -25,10 +25,13 @@ function App() {
       if (res.ok) {
         res.json()
         .then((user) => {
+          console.log('hellow')
           updateUser(user);
           fetchJoinsData()
           fetchTrips()
         });
+      } else {
+        console.log('nope')
       }
     })
   },[])

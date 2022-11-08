@@ -9,6 +9,7 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
         hometown:'',
         bio:'',
         bikepacking_method:'',
+       // profile_pic: undefined
       })
     
     useEffect(() => {
@@ -20,6 +21,11 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+    }
+
+    const handleChangeProfilePic = (e) => {
+        const { name, files } = e.target
+        setFormData({...formData, [name]: files[0]})
     }
     
     
@@ -62,6 +68,11 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
 
                 <label>what's you stryle bru</label>
                 <input type='text' name='bikepacking_method' value={formData.bikepacking_method} onChange={handleChange} />
+
+                <br/><br/>
+
+                {/* <label> upload a sick prof pic dude </label>
+                <input type="file" name="profile_pic" value={formData.profile_pic} onChange={handleChangeProfilePic}/> */}
 
                 <br/><br/>
 
