@@ -4,7 +4,7 @@ import EditProfileForm from './editProfileForm';
 import RenderTripCard from './renderTripCard';
 import {v4 as uuid} from "uuid";
 
-export default function Profile({currentUser}){
+export default function Profile({currentUser, onUpdatingIdentity}){
 
     const navigate = useNavigate();
     const params = useParams();
@@ -102,6 +102,7 @@ export default function Profile({currentUser}){
                     <EditProfileForm
                         currentUser={currentUser}
                         onDoneEditing={handleDoneEditing}
+                        onUpdatingIdentity={(freshIdentity) => setThisUserPage(freshIdentity)}
                     />
                 </div>
                 :

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function EditProfileForm({ currentUser, onDoneEditing }) {
+export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDoneEditing }) {
 
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
@@ -23,10 +23,10 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
         setFormData({ ...formData, [name]: value })
     }
 
-    const handleChangeProfilePic = (e) => {
-        const { name, files } = e.target
-        setFormData({...formData, [name]: files[0]})
-    }
+    // const handleChangeProfilePic = (e) => {
+    //     const { name, files } = e.target
+    //     setFormData({...formData, [name]: files[0]})
+    // }
     
     
     function onSubmit(e){
@@ -38,8 +38,13 @@ export default function EditProfileForm({ currentUser, onDoneEditing }) {
         })
         .then(res => {
             if(res.ok){
-                console.log('hellow from an updated state')
-                onDoneEditing()
+                res.json()
+                .then((freshIdentity) => { 
+                    console.log(freshIdentity)
+                    console.log('hellow from an updated state')
+                    onDoneEditing()
+                    onUpdatingIdentity(freshIdentity)
+                });
             } else {
             //Display errors
                 res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))

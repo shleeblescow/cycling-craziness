@@ -42,8 +42,13 @@ export default function TripDeetsPage({currentUser, allJoins}){
             })
             .then(res => {
                 if(res.ok){
-                    console.log('hellow from an updated state')
-                    clickDrama()
+                    res.json()
+                    .then((tripUpdate) => {                    //res.json().then(console.log(res))
+                        console.log(tripUpdate)
+                        setTrip(() => tripUpdate)
+                        console.log('hellow from an updated state')
+                        clickDrama()
+                    });
                 } else {
                 //Display errors
                     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
@@ -66,6 +71,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
               if(res.ok){
                   res.json().then(res => {
                     setIsAttendee(() => true)
+                    setAttendees([...attendees, currentUser])
                     console.log(`${currentUser.username} is going to ${trip.location}! stupid bitch`)
                   })
               }else {
@@ -94,6 +100,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
               if(res.ok){
                 console.log(`${currentUser.username} is ditching to ${trip.trip_name}! stupid bitch`)
                 setIsAttendee(() => false)
+                setAttendees(attendees.filter((peep) => peep.id != currentUser.id))
               }else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
               }

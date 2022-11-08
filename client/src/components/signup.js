@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import EditProfileForm from './editProfileForm';
 
-export default function SignUp({onUpdateUser}) {
+export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
     
     const [isSaddled, setIsSaddled] = useState(false)
     const [userToPass, setUserToPass] = useState({})
@@ -82,6 +82,7 @@ export default function SignUp({onUpdateUser}) {
                 <div>
                 <h4>change your entire identity</h4>
                 <EditProfileForm
+                    onUpdatingIdentity={onUpdatingIdentity}
                     currentUser={userToPass}
                     onDoneEditing={handleDoneEditing}
                 />
