@@ -8,9 +8,6 @@ export default function PostTrip({currentUser}){
 
     const [errors, setErrors] = useState([])
 
-    console.log(currentUser)
-    //console.log(tripStuff)
-
     function handlePostTrip(tripStuff) {
 
         console.log(tripStuff)
@@ -25,7 +22,6 @@ export default function PostTrip({currentUser}){
                   res.json().then(tripStuff => {
                       console.log(`${tripStuff.name} is gooooiiinnngggg be sick`)
                       makeAJoin(tripStuff)
-                      //navigate('/browsetrips')
                   })
               }else {
                   res.json().then(json => setErrors(Object.entries(json.errors)))
