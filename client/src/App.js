@@ -87,7 +87,6 @@ function App() {
          <Route exact path="/signup" element={
             <Signup 
               onUpdateUser={updateUser}
-              // onUpdatingIdentity={(freshIdentity) => setCurrentUser(freshIdentity)}
             />
           }/>
           <Route exact path="/about" element={
@@ -108,7 +107,6 @@ function App() {
               allTrips={allTrips}
               currentUser={currentUser}
               allJoins={allJoins}
-              // updateTrip={updateTrip}
             />
           }/>
          <Route exact path="/browsetrips/create" element={
@@ -116,10 +114,9 @@ function App() {
               currentUser={currentUser}
             />
           }/>
-          <Route exact path="/users/:id" element={
+          <Route exact path="/profile/:id" element={
             <Profile
               currentUser={currentUser}
-              // onUpdatingIdentity={(freshIdentity) => setCurrentUser(freshIdentity)}
             />
           }/>
       </Routes>

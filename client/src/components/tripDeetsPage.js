@@ -161,7 +161,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                     <div>
                         <h3>about the organizer</h3>
                             basics: 
-                            <Link to={`/users/${organizer.id}`}>
+                            <Link to={`/profile/${organizer.id}`}>
                                  {organizer.name} - {organizer.hometown} - {organizer.age}
                             </Link>
                             <p>style: {organizer.bikepacking_method}</p>
@@ -171,7 +171,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                         <h4>meet the gang ({attendees.length} peep{attendees.length == 1 ? null : "s"} #sendingit)</h4>
                             {attendees.map((peep) =>
                                 <div key={uuid()} >
-                                    <Link to={`/users/${peep.id}`}>
+                                    <Link to={`/profile/${peep.id}`}>
                                         {peep.name} - {peep.age} - '{peep.username}'
                                     </Link>
                                     <br/><br/>

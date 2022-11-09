@@ -28,7 +28,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                 res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
             }
         })
-        setTimeToEdit(() => !timeToEdit)
+        toggleEditButton()
     }
 
     function destroyBikeAH() {
@@ -45,15 +45,11 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
           })
     }
 
-    function setEditTime() {
+    function toggleEditButton() {
         setTimeToEdit(() => !timeToEdit)
     }
 
-    function handleDoneEditingBike() {
-        setTimeToEdit(() => !timeToEdit)
-    }
-
-    console.log(thisBike)
+    //console.log(thisBike)
 
     return (
         <>      
@@ -70,7 +66,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                 {currentUser.id == thisBikePosted.user_id ?
                     <div>
                         <button 
-                            onClick={setEditTime}>
+                            onClick={toggleEditButton}>
                             editBike
                         </button>
                         <button 
@@ -88,7 +84,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                         dramaType={thisBikePosted}
                         currentUser={currentUser}
                         onClickDramaBike={(bikeStuff) => editBikeNowPls(bikeStuff)}
-                        onDoneEditingBike={handleDoneEditingBike}
+                        onDoneEditingBike={toggleEditButton}
                     />
                     :
                     <></>

@@ -22,7 +22,7 @@ export default function Profile({currentUser}){
 
 
     useEffect(() => {
-        fetch(`/users/${params.id}`)
+        fetch(`/userprofile/${params.id}`)
         .then((res) => {
             if (res.ok) {
                 res.json()
@@ -75,7 +75,7 @@ export default function Profile({currentUser}){
                 res.json()
                 .then((profileBikes) => {
                     setProfileBikes(profileBikes)
-                    console.log("profile bikes ", profileBikes)
+                    //console.log("profile bikes ", profileBikes)
                 })
             }
         })
@@ -122,9 +122,9 @@ export default function Profile({currentUser}){
         setIsClickedBikePost(() => !isClickedBikePost)
     }
 
-    function messageDrama(){
-        console.log("omg we're gonna do action cable!")
-    }
+    // function messageDrama(){
+    //     console.log("omg we're gonna do action cable!")
+    // }
 
     return(
         <>
@@ -190,14 +190,14 @@ export default function Profile({currentUser}){
                     {profileBikes.map((eachBike) => 
                         <RenderBikeCard
                             key={uuid()} 
-                            onDelete={() => setProfileBikes(profileBikes)}
+                            onDelete={() => fetchProfileBikes(thisUserPage)}
                             thisBike={eachBike}
                             currentUser={currentUser}
                         />
                     )}
                     </div>
                     :
-                    <p>{thisUserPage.username} doesn't currently have any trips they've created!</p>
+                    <p>{thisUserPage.username} doesn't currently have any bikes cause theyre poor or soemthing, loser</p>
                 }
             </div>  
 

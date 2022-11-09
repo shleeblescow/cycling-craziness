@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to:'sessions#delete' 
   get '/authorized_user', to: 'users#show'
+  get '/userprofile/:id', to: 'users#userprofile'
 
   get '/createdtrips/:id', to:'users#createdtrips'
   get '/joinedtrips/:id', to:'users#joinedtrips'
