@@ -4,7 +4,7 @@ import EditProfileForm from './editProfileForm';
 import RenderTripCard from './renderTripCard';
 import {v4 as uuid} from "uuid";
 
-export default function Profile({currentUser, onUpdatingIdentity}){
+export default function Profile({currentUser}){
 
     const navigate = useNavigate();
     const params = useParams();
@@ -65,6 +65,10 @@ export default function Profile({currentUser, onUpdatingIdentity}){
         setIsClicked(() => !isClicked)
     }
 
+    function bikeDrama() {
+        console.log('bike drama legggoo')
+    }
+
     function handleDoneEditing() {
         setIsClicked(() => !isClicked)
     }
@@ -86,9 +90,15 @@ export default function Profile({currentUser, onUpdatingIdentity}){
             </div>
 
             {currentUser.id == thisUserPage.id ?
-                <button onClick={seeFormDrama}>
-                        pls let me change my identity
-                </button>
+                <div>
+                    <button onClick={seeFormDrama}>
+                            pls let me change my identity
+                    </button>
+                    <br/>
+                    <button onClick={bikeDrama}>
+                            add a fresh bike
+                    </button>
+                </div>
             :
                 <button onClick={messageDrama}>
                     message {thisUserPage.username}
