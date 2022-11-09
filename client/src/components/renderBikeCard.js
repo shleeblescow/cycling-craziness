@@ -2,7 +2,7 @@ import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import BikeForm from './bikeForm';
 
-export default function RenderBikeCard({ thisBike, currentUser }) {
+export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
 
     const [timeToEdit, setTimeToEdit] = useState(false)
     const [errors, setErrors] = useState([])
@@ -31,6 +31,20 @@ export default function RenderBikeCard({ thisBike, currentUser }) {
         setTimeToEdit(() => !timeToEdit)
     }
 
+    function destroyBikeAH() {
+        fetch(`/bikes/${thisBike.id}`,{
+            method:'DELETE'
+          })
+          .then(res => {
+              if(res.ok){
+                console.log(`${currentUser.username} is deleting ${thisBike.bike_name}!? stupid bitch`)
+                onDelete()
+              }else {
+                res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+          })
+    }
+
     function setEditTime() {
         setTimeToEdit(() => !timeToEdit)
     }
@@ -54,10 +68,16 @@ export default function RenderBikeCard({ thisBike, currentUser }) {
             <p>{thisBikePosted.bike_type}</p>
             <div>
                 {currentUser.id == thisBikePosted.user_id ?
-                    <button 
-                        onClick={setEditTime}>
-                        editBike
-                    </button>
+                    <div>
+                        <button 
+                            onClick={setEditTime}>
+                            editBike
+                        </button>
+                        <button 
+                            onClick={destroyBikeAH}>
+                            delete bike
+                        </button>
+                    </div>
                     :
                     <></>
                 }

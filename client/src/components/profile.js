@@ -95,6 +95,7 @@ export default function Profile({currentUser}){
               if(res.ok){
                   res.json().then(bikeStuff => {
                       console.log(`${bikeStuff.bike_name} is such a stupid bike`)
+                      setProfileBikes(() => [...profileBikes, bikeStuff])
                   })
               }else {
                   res.json().then(json => setErrors(Object.entries(json.errors)))
@@ -148,9 +149,10 @@ export default function Profile({currentUser}){
                     </button>
                 </div>
             :
-                <button onClick={messageDrama}>
-                    message {thisUserPage.username}
-                </button>
+                // <button onClick={messageDrama}>
+                //     message {thisUserPage.username}
+                // </button>
+                <></>
             
             }
 
@@ -188,6 +190,7 @@ export default function Profile({currentUser}){
                     {profileBikes.map((eachBike) => 
                         <RenderBikeCard
                             key={uuid()} 
+                            onDelete={() => setProfileBikes(profileBikes)}
                             thisBike={eachBike}
                             currentUser={currentUser}
                         />
