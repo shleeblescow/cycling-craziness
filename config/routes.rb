@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   get '/createdtrips/:id', to:'users#createdtrips'
   get '/joinedtrips/:id', to:'users#joinedtrips'
+  get '/profilebikes/:id', to:'users#profilebikes'
+
+  # gona need a custom route for getting that users bikes me thinks (ew did i really just that?  gross)
 
   # get '*path',
   #     to: 'fallback#index',

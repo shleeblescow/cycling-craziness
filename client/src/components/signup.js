@@ -82,7 +82,7 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
                 <div>
                 <h4>change your entire identity</h4>
                 <EditProfileForm
-                    onUpdatingIdentity={onUpdatingIdentity}
+                    // onUpdatingIdentity={onUpdatingIdentity}
                     currentUser={userToPass}
                     onDoneEditing={handleDoneEditing}
                 />

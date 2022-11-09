@@ -110,5 +110,52 @@ j5 = UserTripJoin.create(
     trip_id: t2.id 
 )
 
+b1 = Bike.create(
+    bike_name: "puke van larry",
+    brand: "specialized",
+    bike_type: "hardtail",
+    model: "'22 fuse 29r",
+    bike_photo: "https://assets.specialized.com/i/specialized/96022-50_FUSE-COMP-29-OLVGRN-SND_HERO?bg=rgb(241,241,241)&w=1600&h=900&fmt=auto",
+    user_id: u4.id
+)
+
+b2 = Bike.create(
+    bike_name: "MC (My Child)",
+    brand: "specialized",
+    bike_type: "trail",
+    model: "'22 stumpy evo comp",
+    bike_photo: "https://p.vitalmtb.com/photos/products/34301/photos/78557/original_photo_724862.jpg?VersionId=psk0gc_E9y2g5N1s1rwmSRteRMXM8hvL",
+    user_id: u4.id
+)
+
+b3 = Bike.create(
+    bike_name: "troy doesnt name stuff",
+    brand: "santa cruz",
+    bike_type: "hardtail",
+    model: "chameleon",
+    bike_photo: "https://triathlonmagazine.ca/wp-content/uploads/2018/06/andean-red-profile_v02.jpg",
+    user_id: u1.id
+)
+
+b4 = Bike.create(
+    bike_name: "patrik?",
+    brand: "kona",
+    bike_type: "hardtail",
+    model: "honzo",
+    bike_photo: "https://images.immediate.co.uk/production/volatile/sites/21/2022/01/kona-honzo-esd-7b26934.jpg?quality=90&resize=768%2C574",
+    user_id: u2.id
+)
+
+b5 = Bike.create(
+    bike_name: "some stone",
+    brand: "surly",
+    bike_type: "fully rigid fat bike",
+    model: "krampus",
+    bike_photo: "https://mbaction.com/wp-content/uploads/2015/04/Surly-1-e1428043171769.jpg",
+    user_id: u3.id
+)
+
+
+
 
 puts "thats all you get stoopid"

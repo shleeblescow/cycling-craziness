@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import EditProfileForm from './editProfileForm';
 import RenderTripCard from './renderTripCard';
 import {v4 as uuid} from "uuid";
+import BikeForm from './bikeForm';
+import RenderBikeCard from './renderBikeCard';
 
 export default function Profile({currentUser}){
 
@@ -12,8 +14,12 @@ export default function Profile({currentUser}){
     // might have to push these up later but chillin for now i think
     const [joinedTrips, setJoinedTrips] = useState([])
     const [createdTrips, setCreatedTrips] = useState([])
+    const [profileBikes, setProfileBikes] = useState([])
     const [isClicked, setIsClicked] = useState(false)
+    const [isClickedBikePost, setIsClickedBikePost] = useState(false)
     const [thisUserPage, setThisUserPage] = useState({})
+    const [errors, setErrors] = useState([])
+
 
     useEffect(() => {
         fetch(`/users/${params.id}`)
@@ -24,6 +30,7 @@ export default function Profile({currentUser}){
                     setThisUserPage(() => user)
                     fetchJoinedTrips(user)
                     fetchCreatedTrips(user)
+                    fetchProfileBikes(user)
                     console.log('who should be displayed here', user)
 
                 })
@@ -61,16 +68,57 @@ export default function Profile({currentUser}){
         })
     }
 
+    const fetchProfileBikes = (thisUserPage) => {
+        fetch(`/profilebikes/${thisUserPage.id}`)
+        .then((res) => {
+            if (res.ok) {
+                res.json()
+                .then((profileBikes) => {
+                    setProfileBikes(profileBikes)
+                    console.log("profile bikes ", profileBikes)
+                })
+            }
+        })
+    }
+
+    // adding a new bike to their profile
+    function postBikeNowPls(bikeStuff) {
+        
+        console.log(bikeStuff)
+
+        fetch(`/bikes`,{
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(bikeStuff)
+        })
+          .then(res => {
+              if(res.ok){
+                  res.json().then(bikeStuff => {
+                      console.log(`${bikeStuff.bike_name} is such a stupid bike`)
+                  })
+              }else {
+                  res.json().then(json => setErrors(Object.entries(json.errors)))
+              }
+        })
+
+        setIsClickedBikePost(() => !isClickedBikePost)
+    }
+
+    // all the button and button state drama
     function seeFormDrama(){
         setIsClicked(() => !isClicked)
     }
 
-    function bikeDrama() {
-        console.log('bike drama legggoo')
+    function bikeDramaPost() {
+        setIsClickedBikePost(() => !isClickedBikePost)
     }
 
     function handleDoneEditing() {
         setIsClicked(() => !isClicked)
+    }
+
+    function handleDoneEditingBike() {
+        setIsClickedBikePost(() => !isClickedBikePost)
     }
 
     function messageDrama(){
@@ -95,7 +143,7 @@ export default function Profile({currentUser}){
                             pls let me change my identity
                     </button>
                     <br/>
-                    <button onClick={bikeDrama}>
+                    <button onClick={bikeDramaPost}>
                             add a fresh bike
                     </button>
                 </div>
@@ -118,6 +166,37 @@ export default function Profile({currentUser}){
                 :
                 <></>
             }
+
+            {isClickedBikePost ?
+                <div>
+                    <h4>add a bike</h4>
+                    <BikeForm
+                        dramaType={"post"}
+                        currentUser={currentUser}
+                        onClickDramaBike={(bikeStuff) => postBikeNowPls(bikeStuff)}
+                        onDoneEditingBike={handleDoneEditingBike}
+                    />
+                </div>
+                :
+                <></>
+            }
+
+            <div>
+                <h2>{thisUserPage.username}'s babies</h2>
+                {profileBikes.length >= 1 ?
+                    <div>
+                    {profileBikes.map((eachBike) => 
+                        <RenderBikeCard
+                            key={uuid()} 
+                            thisBike={eachBike}
+                            currentUser={currentUser}
+                        />
+                    )}
+                    </div>
+                    :
+                    <p>{thisUserPage.username} doesn't currently have any trips they've created!</p>
+                }
+            </div>  
 
             <div>
                 <h2>my lil trips i made go me</h2>

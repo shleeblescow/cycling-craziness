@@ -1,17 +1,17 @@
 // attributes :id, :bike_name, :brand, :type, :model, :bike_photo, :user_id
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripForm from './tripForm';
 
-export default function BikeForm({currentUser}){
+export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
 
     const [url, setUrl] = useState('')
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         bike_name: '',
         brand: '',
-        type: '',
+        bike_type: '',
         model: ''
     })
 
@@ -23,6 +23,8 @@ export default function BikeForm({currentUser}){
         }
     },[])
 
+    // const {bike_name, brand, bike_type, model} = formData
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -32,16 +34,16 @@ export default function BikeForm({currentUser}){
     function onSubmit(e){
         e.preventDefault()
         
-        const tripStuff = {
+        const bikeStuff = {
             "bike_name": formData.bike_name,
             "brand": formData.brand,
-            "type": formData.type,
+            "bike_type": formData.bike_type,
             "model": formData.model,
-            "bike_photo": "just you wait for some Active Storage Drama!",
+            "bike_photo": formData.bike_photo,
             "user_id": currentUser.id
         }
 
-        onClickDrama(tripStuff)
+        onClickDramaBike(bikeStuff)
     }
 
     return (
@@ -69,7 +71,7 @@ export default function BikeForm({currentUser}){
         <label>
         gravel mtb road whatver you chose is the bad one
         </label>
-        <input type='text' name='type' value={formData.type} onChange={handleChange} />
+        <input type='text' name='bike_type' value={formData.bike_type} onChange={handleChange} />
 
         <br/><br/>
 
@@ -77,6 +79,13 @@ export default function BikeForm({currentUser}){
         like anyone know what your arbitrary bike model is
         </label>  
         <input type='text' name='model' value={formData.model} onChange={handleChange} />
+
+        <br/><br/>
+
+        <label>
+         and of course you have a photo of it, probs leaning agaisnt something
+        </label>  
+        <input type='text' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
 
         <br/><br/>
 

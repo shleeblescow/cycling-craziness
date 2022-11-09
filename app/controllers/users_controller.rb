@@ -51,6 +51,12 @@ class UsersController < ApplicationController
         render json: joined_trips
     end
 
+    def profilebikes
+        user = User.find(params[:id])
+        profile_bikes = user.bikes
+        render json: profile_bikes
+    end
+
     private
 
     def user_params

@@ -43,7 +43,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
             .then(res => {
                 if(res.ok){
                     res.json()
-                    .then((tripUpdate) => {                    //res.json().then(console.log(res))
+                    .then((tripUpdate) => {
                         console.log(tripUpdate)
                         setTrip(() => tripUpdate)
                         console.log('hellow from an updated state')
