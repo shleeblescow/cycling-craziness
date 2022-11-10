@@ -34,11 +34,15 @@ export default function TripDeetsPage({currentUser, allJoins}){
     },[])
 
     // edit the trip if it belongs to the current user
-    function handleEditTrip(tripStuff) {
+    function handleEditTrip(tripStuff, formDataSubmit) {
+            // fetch(`/trips/${params.id}`,{
+            //     method:'PATCH',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body:JSON.stringify(tripStuff)
+            // })
             fetch(`/trips/${params.id}`,{
-                method:'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body:JSON.stringify(tripStuff)
+                method: 'PATCH',
+                body: formDataSubmit
             })
             .then(res => {
                 if(res.ok){
@@ -199,7 +203,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                                     <div>
                                         <TripForm
                                             currentUser={currentUser}
-                                            onClickDrama={(tripStuff) => handleEditTrip(tripStuff)}
+                                            onClickDrama={(tripStuff, formDataSubmit) => handleEditTrip(tripStuff, formDataSubmit)}
                                             dramaType={cheaterProp}
                                         />
                                     </div>

@@ -19,6 +19,8 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
         about_trip: ''
     })
 
+    const [tripPhotoFile, setTripPhotoFile] = useState(null)
+
     useEffect(() => {
         if (dramaType == "post") {
             const {link, trip_name, location, route_photo, total_mileage, total_vert, daily_mileage, est_total_weeks, departure_city, final_city, departure_month, about_trip} = formData
@@ -49,10 +51,27 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
             "final_city": formData.final_city,
             "departure_month": formData.departure_month,
             "about_trip": formData.about_trip,
-            "creator_id": currentUser.id
+            "creator_id": currentUser.id,
+            "trip_photo_file": tripPhotoFile
         }
 
-        onClickDrama(tripStuff)
+        const formDataSubmit = new FormData()
+            formDataSubmit.append("link", formData.link)
+            formDataSubmit.append("trip_name", formData.trip_name)
+            formDataSubmit.append("location", formData.location)
+            formDataSubmit.append("route_photo", formData.route_photo)
+            formDataSubmit.append("total_mileage", formData.total_mileage)
+            formDataSubmit.append("total_vert", formData.total_vert)
+            formDataSubmit.append("daily_mileage", formData.daily_mileage)
+            formDataSubmit.append("est_total_weeks", formData.est_total_weeks)
+            formDataSubmit.append("departure_city", formData.departure_city)
+            formDataSubmit.append("final_city", formData.final_city)
+            formDataSubmit.append("departure_month", formData.departure_month)
+            formDataSubmit.append("about_trip", formData.about_trip)
+            formDataSubmit.append("creator_id", currentUser.id)
+            formDataSubmit.append("trip_photo_file", tripPhotoFile)
+
+        onClickDrama(tripStuff, formDataSubmit)
     }
 
     return (
@@ -144,6 +163,13 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
          About the Trip
         </label>  
         <input type='text' name='about_trip' value={formData.about_trip} onChange={handleChange} />
+
+        <br/><br/>
+
+        <label>
+         your own personal photo wow
+        </label>  
+        <input type='file' accept="image/*" onChange={(e) => setTripPhotoFile(e.target.files[0])} />
 
         <br/><br/>
 

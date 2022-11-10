@@ -29,7 +29,7 @@ class TripsController < ApplicationController
     private
 
     def trip_params
-        params.permit(:link, :trip_name, :location, :route_photo, :total_mileage, :total_vert, :daily_mileage, :est_total_weeks, :departure_city, :final_city, :departure_month, :about_trip, :creator_id)
+        params.permit(:link, :trip_name, :location, :route_photo, :total_mileage, :total_vert, :daily_mileage, :est_total_weeks, :departure_city, :final_city, :departure_month, :about_trip, :creator_id, :trip_photo_file)
     end
 
 
