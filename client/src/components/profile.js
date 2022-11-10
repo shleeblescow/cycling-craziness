@@ -82,14 +82,15 @@ export default function Profile({currentUser}){
     }
 
     // adding a new bike to their profile
-    function postBikeNowPls(bikeStuff) {
+    function postBikeNowPls(bikeStuff, formDataSubmit) {
         
         console.log(bikeStuff)
 
         fetch(`/bikes`,{
             method:'POST',
-            headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify(bikeStuff)
+            // headers:{'Content-Type': 'application/json'},
+            // body:JSON.stringify(bikeStuff)
+            body: formDataSubmit
         })
           .then(res => {
               if(res.ok){
@@ -179,7 +180,7 @@ export default function Profile({currentUser}){
                     <BikeForm
                         dramaType={"post"}
                         currentUser={currentUser}
-                        onClickDramaBike={(bikeStuff) => postBikeNowPls(bikeStuff)}
+                        onClickDramaBike={(bikeStuff, formDataSubmit) => postBikeNowPls(bikeStuff, formDataSubmit)}
                         onDoneEditingBike={handleDoneEditingBike}
                     />
                 </div>

@@ -15,6 +15,8 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
         model: ''
     })
 
+    const [bikePhotoFile, setBikePhotoFile] = useState(null)
+
     useEffect(() => {
         if (dramaType == "post") {
             const {bike_name, brand, type, model} = formData
@@ -23,7 +25,6 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
         }
     },[])
 
-    // const {bike_name, brand, bike_type, model} = formData
 
 
     const handleChange = (e) => {
@@ -43,7 +44,16 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
             "user_id": currentUser.id
         }
 
-        onClickDramaBike(bikeStuff)
+        const formDataSubmit = new FormData()
+            formDataSubmit.append("bike_name", formData.bike_name)
+            formDataSubmit.append("brand", formData.brand)
+            formDataSubmit.append("bike_type", formData.bike_type)
+            formDataSubmit.append("model", formData.model)
+            formDataSubmit.append("user_id", currentUser.id)
+            formDataSubmit.append("bike_photo_file", bikePhotoFile)
+
+
+        onClickDramaBike(bikeStuff, formDataSubmit)
     }
 
     return (
@@ -82,19 +92,19 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
 
         <br/><br/>
 
-        <label>
+        {/* <label>
          and of course you have a photo of it, probs leaning agaisnt something
         </label>  
         <input type='text' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
 
-        <br/><br/>
+        <br/><br/> */}
 
-        {/* <label>
+        <label>
          and of course you have a photo of it, probs leaning agaisnt something
         </label>  
-        <input type='file' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
+        <input type='file' accept="image/*" onChange={(e) => setBikePhotoFile(e.target.files[0])} />
 
-        <br/><br/> */}
+        <br/><br/>
 
         <input type='submit' value='everyone hates your bike' />
       </form>
