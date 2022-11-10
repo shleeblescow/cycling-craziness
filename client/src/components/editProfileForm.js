@@ -8,33 +8,41 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
         age: undefined,
         hometown:'',
         bio:'',
-        bikepacking_method:'',
-       // profile_pic: undefined
+        bikepacking_method:''
       })
+
+    const [uploadedFile, setUploadedFile] = useState(null)
     
     useEffect(() => {
         fetch(`/users/${currentUser.id}`)
         .then(res => res.json())
         .then(setFormData)
+        setUploadedFile(currentUser.profile_pic_file)
     },[])
     
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
-
-    // const handleChangeProfilePic = (e) => {
-    //     const { name, files } = e.target
-    //     setFormData({...formData, [name]: files[0]})
-    // }
-    
     
     function onSubmit(e){
+       
         e.preventDefault()
+
+        const formDataSubmit = new FormData()
+            formDataSubmit.append("age", formData.age)
+            formDataSubmit.append("hometown", formData.hometown)
+            formDataSubmit.append("bio", formData.bio)
+            formDataSubmit.append("bikepacking_method", formData.bikepacking_method)
+            formDataSubmit.append("profile_pic_file", uploadedFile)
+
+
+
         fetch(`/users/${currentUser.id}`,{
             method:'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(formData)
+            // headers: {'Content-Type': 'application/json'},
+            // body:JSON.stringify(formData)
+            body: formDataSubmit
         })
         .then(res => {
             if(res.ok){
@@ -76,8 +84,8 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
 
                 <br/><br/>
 
-                {/* <label> upload a sick prof pic dude </label>
-                <input type="file" name="profile_pic" value={formData.profile_pic} onChange={handleChangeProfilePic}/> */}
+                <label> upload a sick prof pic dude </label>
+                <input type='file' accept="image/*" onChange={(e) => setUploadedFile(e.target.files[0])}/>
 
                 <br/><br/>
 

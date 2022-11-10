@@ -131,6 +131,10 @@ export default function Profile({currentUser}){
 
             <div>
                 <h1>{thisUserPage.username}</h1>
+                <img
+                    src={thisUserPage.profile_pic_file}
+                    alt={'ugly ass person'}
+                />
                 <p>name: {thisUserPage.name}</p>
                 <p>hometwon: {thisUserPage.hometown}</p>
                 <p>age: {thisUserPage.age}</p>

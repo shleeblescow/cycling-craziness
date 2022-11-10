@@ -132,6 +132,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
     // cause state likes to be a lil bitch
     const cheaterProp = trip
+    console.log(cheaterProp.trip_photo_file)
 
     if(errors) return <h1> omg you broke something</h1>
 
@@ -228,6 +229,19 @@ export default function TripDeetsPage({currentUser, allJoins}){
                 </div> 
 
                 <br/><br/> 
+
+                {trip.trip_photo_file ?
+                    <div>
+                        here is a photo idk 
+                        <img
+                            //src={`localhost:3000${trip.trip_photo_file}`}
+                            src={trip.trip_photo_file}
+                            alt={"here's where a photo would go"}
+                        />
+                    </div>
+                    :
+                    <p>not cool enough for photos ig</p>
+            }
 
         </div>
 
