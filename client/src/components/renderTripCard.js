@@ -6,10 +6,17 @@ export default function RenderTripCard({ thisTrip, onButtonDrama }) {
     return (
         <>      
             <div>
-                <img
-                    src={thisTrip.route_photo}
-                    alt={"route photo"}
-                />
+                    {thisTrip.trip_photo_file ?
+                        <img
+                            src={thisTrip.trip_photo_file}
+                            alt={"trip photo"}
+                        />
+                    :
+                        <img
+                            src={thisTrip.route_photo}
+                            alt={"bike photo"}
+                        />
+                    }
             </div>
             <h2>{thisTrip.trip_name}: <span>{thisTrip.location}</span></h2>
             <p>Departing from: {thisTrip.departure_city} in {thisTrip.departure_month}</p>

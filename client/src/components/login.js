@@ -19,11 +19,15 @@ function Login({onUpdateUser}) {
             username: username,
             password: password
         }
+        const formDataSubmit = new FormData()
+            formDataSubmit.append("username", user.username)
+            formDataSubmit.append("password", user.password)
        console.log(user)
         fetch(`/login`,{
           method:'POST',
-          headers:{'Content-Type': 'application/json'},
-          body:JSON.stringify(user)
+          body: formDataSubmit
+        //   headers:{'Content-Type': 'application/json'},
+        //   body:JSON.stringify(user)
         })
         .then(res => {
             if(res.ok){

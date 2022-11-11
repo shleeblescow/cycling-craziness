@@ -1,12 +1,9 @@
 // attributes :id, :bike_name, :brand, :type, :model, :bike_photo, :user_id
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TripForm from './tripForm';
 
 export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
 
-    const [url, setUrl] = useState('')
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
         bike_name: '',
@@ -92,17 +89,19 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
 
         <br/><br/>
 
-        {/* <label>
-         and of course you have a photo of it, probs leaning agaisnt something
-        </label>  
-        <input type='text' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
-
-        <br/><br/> */}
-
         <label>
-         and of course you have a photo of it, probs leaning agaisnt something
+        ofc you have a photo of it, loser, upload it here in whatever format
         </label>  
         <input type='file' accept="image/*" onChange={(e) => setBikePhotoFile(e.target.files[0])} />
+
+        <br/>
+
+        <p>OR</p>
+
+        <label>
+        you really don't have a photo saved of it?  if you really want you can upload a link to a photo of it I guess...
+        </label>  
+        <input type='text' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
 
         <br/><br/>
 

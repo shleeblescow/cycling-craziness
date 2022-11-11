@@ -8,12 +8,13 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
     const [errors, setErrors] = useState([])
     const [thisBikePosted, setThisBikePosted] = useState(thisBike)
 
-    function editBikeNowPls(bikeStuff) {
+    function editBikeNowPls(bikeStuff, formDataSubmit) {
         console.log("gonna edit some bikes y'all")
         fetch(`/bikes/${thisBike.id}`,{
             method:'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(bikeStuff)
+            body: formDataSubmit
+            // headers: {'Content-Type': 'application/json'},
+            // body:JSON.stringify(bikeStuff)
         })
         .then(res => {
             if(res.ok){
@@ -54,10 +55,17 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
     return (
         <>      
             <div>
-                <img
-                    src={thisBikePosted.bike_photo}
-                    alt={"bike photo"}
-                />
+                    {thisBikePosted.bike_photo_file ?
+                        <img
+                            src={thisBikePosted.bike_photo_file}
+                            alt={"bike photo"}
+                        />
+                    :
+                        <img
+                            src={thisBikePosted.bike_photo}
+                            alt={"bike photo"}
+                        />
+                    }
             </div>
             <h4>{thisBikePosted.bike_name}</h4>
             <p>{thisBikePosted.brand} - <span>{thisBikePosted.model}</span></p>
@@ -83,7 +91,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                     <BikeForm
                         dramaType={thisBikePosted}
                         currentUser={currentUser}
-                        onClickDramaBike={(bikeStuff) => editBikeNowPls(bikeStuff)}
+                        onClickDramaBike={(bikeStuff, formDataSubmit) => editBikeNowPls(bikeStuff, formDataSubmit)}
                         onDoneEditingBike={toggleEditButton}
                     />
                     :

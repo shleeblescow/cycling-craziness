@@ -146,12 +146,17 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
             <h1>{trip.trip_name}</h1>
 
-                <div>
-                    <img
-                        src={trip.route_photo}
-                        alt={"route photo"}
-                    />
-                </div>
+            {trip.trip_photo_file ?
+                        <img
+                            src={trip.trip_photo_file}
+                            alt={"trip photo"}
+                        />
+                    :
+                        <img
+                            src={trip.route_photo}
+                            alt={"bike photo"}
+                        />
+                    }
                 
                 <p>Location: {trip.location}</p>
                 <p>Departing from: {trip.departure_city} in {trip.departure_month}</p>
@@ -230,18 +235,6 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
                 <br/><br/> 
 
-                {trip.trip_photo_file ?
-                    <div>
-                        here is a photo idk 
-                        <img
-                            //src={`localhost:3000${trip.trip_photo_file}`}
-                            src={trip.trip_photo_file}
-                            alt={"here's where a photo would go"}
-                        />
-                    </div>
-                    :
-                    <p>not cool enough for photos ig</p>
-            }
 
         </div>
 

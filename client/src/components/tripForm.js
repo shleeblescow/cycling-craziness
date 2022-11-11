@@ -104,9 +104,18 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
         <br/><br/>
 
         <label>
-        Route Photo
+        Route Photo Link Upload
         </label>  
         <input type='text' name='route_photo' value={formData.route_photo} onChange={handleChange} />
+
+        <br/>
+
+        <p>OR</p>
+
+        <label>
+         {"your own personal photo of the route wow (screenshot, jpeg, whatevs')"}
+        </label>  
+        <input type='file' accept="image/*" onChange={(e) => setTripPhotoFile(e.target.files[0])} />
 
         <br/><br/>
 
@@ -163,13 +172,6 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
          About the Trip
         </label>  
         <input type='text' name='about_trip' value={formData.about_trip} onChange={handleChange} />
-
-        <br/><br/>
-
-        <label>
-         your own personal photo wow
-        </label>  
-        <input type='file' accept="image/*" onChange={(e) => setTripPhotoFile(e.target.files[0])} />
 
         <br/><br/>
 
