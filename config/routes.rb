@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_personal_photos
   resources :bikes
   resources :user_trip_joins
   resources :trips
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   get '/createdtrips/:id', to:'users#createdtrips'
   get '/joinedtrips/:id', to:'users#joinedtrips'
   get '/profilebikes/:id', to:'users#profilebikes'
+  get '/userfunphotos/:id', to:'users#funphotos'
 
   # gona need a custom route for getting that users bikes me thinks (ew did i really just that?  gross)
 

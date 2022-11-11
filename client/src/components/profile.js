@@ -5,6 +5,8 @@ import RenderTripCard from './renderTripCard';
 import {v4 as uuid} from "uuid";
 import BikeForm from './bikeForm';
 import RenderBikeCard from './renderBikeCard';
+import AddPhotosForm from './addPhotosForm';
+import RenderPhotos from './renderPhotos';
 
 export default function Profile({currentUser}){
 
@@ -15,8 +17,10 @@ export default function Profile({currentUser}){
     const [joinedTrips, setJoinedTrips] = useState([])
     const [createdTrips, setCreatedTrips] = useState([])
     const [profileBikes, setProfileBikes] = useState([])
+    const [userFunPhotos, setUserFunPhotos] = useState([])
     const [isClicked, setIsClicked] = useState(false)
     const [isClickedBikePost, setIsClickedBikePost] = useState(false)
+    const [isClickedPhotoPost, setIsClickedPhotoPost] = useState(false)
     const [thisUserPage, setThisUserPage] = useState({})
     const [errors, setErrors] = useState([])
 
@@ -31,6 +35,7 @@ export default function Profile({currentUser}){
                     fetchJoinedTrips(user)
                     fetchCreatedTrips(user)
                     fetchProfileBikes(user)
+                    fetchUserFunPhotos(user)
                     console.log('who should be displayed here', user)
 
                 })
@@ -81,6 +86,19 @@ export default function Profile({currentUser}){
         })
     }
 
+    const fetchUserFunPhotos = (thisUserPage) => {
+        fetch(`/userfunphotos/${thisUserPage.id}`)
+        .then((res) => {
+            if (res.ok) {
+                res.json()
+                .then((profileFunPhotos) => {
+                    setUserFunPhotos(profileFunPhotos)
+                    //console.log("profile bikes ", profileBikes)
+                })
+            }
+        })
+    }
+
     // adding a new bike to their profile
     function postBikeNowPls(bikeStuff, formDataSubmit) {
         
@@ -113,6 +131,10 @@ export default function Profile({currentUser}){
 
     function bikeDramaPost() {
         setIsClickedBikePost(() => !isClickedBikePost)
+    }
+
+    function postPhotoDrama(){
+        setIsClickedPhotoPost(() => !isClickedPhotoPost)
     }
 
     function handleDoneEditing() {
@@ -152,6 +174,9 @@ export default function Profile({currentUser}){
                     <button onClick={bikeDramaPost}>
                             add a fresh bike
                     </button>
+                    <button onClick={postPhotoDrama}>
+                            add some pics to the prof
+                    </button>
                 </div>
             :
                 // <button onClick={messageDrama}>
@@ -187,6 +212,18 @@ export default function Profile({currentUser}){
                 :
                 <></>
             }
+
+            {isClickedPhotoPost ?
+                <div>
+                    <h4>add a pic</h4>
+                    <AddPhotosForm
+                        currentUser={currentUser}
+                        onDoneEditing={postPhotoDrama}
+                    />
+                </div>
+                :
+                <></>
+            }   
 
             <div>
                 <h2>{thisUserPage.username}'s babies</h2>
@@ -240,6 +277,22 @@ export default function Profile({currentUser}){
                     </div>
                     :
                     <p>{thisUserPage.username} doesn't currently have any trips they're crashing'!</p>
+                }
+            </div>
+
+            <div>
+                <h2>{thisUserPage.username}'s photos</h2>
+                {userFunPhotos.length >= 1 ?
+                    <div>
+                        {userFunPhotos.map((eachPhoto) => 
+                        <RenderPhotos
+                            key={uuid()} 
+                            thisPhotos={eachPhoto}
+                        />
+                    )}
+                    </div>
+                    :
+                    <p>{thisUserPage.username} doesn't have any photos what a pleeb</p>
                 }
             </div>
         </>

@@ -44,6 +44,12 @@ class UsersController < ApplicationController
         render json: profile_bikes
     end
 
+    def funphotos
+        user = User.find(params[:id])
+        fun_photos = user.user_personal_photos
+        render json: fun_photos
+    end
+
     private
 
     def user_params
