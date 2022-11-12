@@ -91,8 +91,10 @@ export default function Profile({currentUser}){
         .then((res) => {
             if (res.ok) {
                 res.json()
-                .then((profileFunPhotos) => {
-                    setUserFunPhotos(profileFunPhotos)
+                .then((userFunPhotos) => {
+                    setUserFunPhotos(userFunPhotos)
+                    console.log("photo fetch", userFunPhotos)
+                    
                     //console.log("profile bikes ", profileBikes)
                 })
             }
@@ -287,7 +289,8 @@ export default function Profile({currentUser}){
                         {userFunPhotos.map((eachPhoto) => 
                         <RenderPhotos
                             key={uuid()} 
-                            thisPhotos={eachPhoto}
+                            thisPhoto={eachPhoto}
+                            currentUser={currentUser}
                         />
                     )}
                     </div>

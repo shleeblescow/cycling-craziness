@@ -1,10 +1,9 @@
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function RenderPhotos({ thisPhoto }) {
+export default function RenderPhotos({ thisPhoto, currentUser }) {
 
     const [errors, setErrors] = useState([])
-    const [thisPhotoPosted, setThisPhotoPosted] = useState(thisPhoto)
 
     function destroyPhotoAH() {
         fetch(`/userpersonalphotos/${thisPhoto.id}`,{
@@ -19,19 +18,23 @@ export default function RenderPhotos({ thisPhoto }) {
           })
     }
 
-    console.log(thisPhoto)
+    console.log('this photo', thisPhoto)
 
     return (
         <>      
             <div>
                 <img
-                    src={thisPhotoPosted.fun_photo_file}
+                    src={thisPhoto.fun_photo_file}
                     alt={"fun photo"}
                 />
-                <button 
-                    onClick={destroyPhotoAH}>
-                    delete photo
-                </button>
+                {thisPhoto.user_id == currentUser.id ?
+                    <button 
+                        onClick={destroyPhotoAH}>
+                        delete photo
+                    </button>
+                    :
+                    <></>
+                }
             </div>
         </>
     )

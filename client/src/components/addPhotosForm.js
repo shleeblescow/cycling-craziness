@@ -14,7 +14,7 @@ export default function AddPhotosForm({ currentUser, onDoneEditing }) {
 
         const formDataSubmit = new FormData()
             formDataSubmit.append("user_id", currentUser.id)
-            formDataSubmit.append("profile_pic_file", uploadedFile)
+            formDataSubmit.append("fun_photo_file", uploadedFile)
 
 
 
