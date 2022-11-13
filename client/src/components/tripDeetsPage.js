@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import TripForm from './tripForm';
 
-export default function TripDeetsPage({currentUser, allJoins}){
+export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
 
     const navigate = useNavigate();
     const params = useParams();
@@ -40,6 +40,8 @@ export default function TripDeetsPage({currentUser, allJoins}){
             //     headers: {'Content-Type': 'application/json'},
             //     body:JSON.stringify(tripStuff)
             // })
+            // console.log('form data submit in hanlde edit trip', formDataSubmit)
+            // console.log('trip stuff in hanlde edit trip', tripStuff)
             fetch(`/trips/${params.id}`,{
                 method: 'PATCH',
                 body: formDataSubmit
@@ -55,6 +57,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                     });
                 } else {
                 //Display errors
+                // TO DO: ERROR POP UP
                     res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
                 }
             })
@@ -66,6 +69,8 @@ export default function TripDeetsPage({currentUser, allJoins}){
             user_id: currentUser.id,
             trip_id: trip.id
         }
+        // console.log('new join', joinToPost)
+        // console.log('all joins', allJoins)
         fetch(`/user_trip_joins`,{
             method:'POST',
             headers:{'Content-Type': 'application/json'},
@@ -76,6 +81,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
                   res.json().then(res => {
                     setIsAttendee(() => true)
                     setAttendees([...attendees, currentUser])
+                    fetchJoinsData()
                     console.log(`${currentUser.username} is going to ${trip.location}! stupid bitch`)
                   })
               }else {
@@ -103,6 +109,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
           .then(res => {
               if(res.ok){
                 console.log(`${currentUser.username} is ditching to ${trip.trip_name}! stupid bitch`)
+                fetchJoinsData()
                 setIsAttendee(() => false)
                 setAttendees(attendees.filter((peep) => peep.id != currentUser.id))
               }else {
@@ -132,7 +139,7 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
     // cause state likes to be a lil bitch
     const cheaterProp = trip
-    console.log(cheaterProp.trip_photo_file)
+    //console.log(cheaterProp.trip_photo_file)
 
     if(errors) return <h1> omg you broke something</h1>
 
@@ -144,9 +151,9 @@ export default function TripDeetsPage({currentUser, allJoins}){
 
             <br/><br/><br/>
 
-            <h1>{trip.trip_name}</h1>
+                <h1>{trip.trip_name}</h1>
 
-            {trip.trip_photo_file ?
+                {trip.trip_photo_file ?
                         <img
                             src={trip.trip_photo_file}
                             alt={"trip photo"}
@@ -162,6 +169,16 @@ export default function TripDeetsPage({currentUser, allJoins}){
                 <p>Departing from: {trip.departure_city} in {trip.departure_month}</p>
                 <p>Ending in: {trip.final_city}</p>
                 <p>{trip.total_mileage} total miles - {trip.total_vert} total vert</p>
+                {trip.link ?
+                    <p>link to more trip deets:  
+                        <Link to={trip.link}>
+                            {trip.link}
+                        </Link>
+                    </p>
+                    :
+                    <></>
+            
+                }
                 <div>
 
                     <div>

@@ -34,8 +34,9 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
             formDataSubmit.append("hometown", formData.hometown)
             formDataSubmit.append("bio", formData.bio)
             formDataSubmit.append("bikepacking_method", formData.bikepacking_method)
-            formDataSubmit.append("profile_pic_file", uploadedFile)
-
+            if (uploadedFile) {
+                formDataSubmit.append("profile_pic_file", uploadedFile)
+            }
 
 
         fetch(`/users/${currentUser.id}`,{
@@ -55,6 +56,7 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
                 });
             } else {
             //Display errors
+            // TO DO: ERROR POP UP
                 res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
             }
         })

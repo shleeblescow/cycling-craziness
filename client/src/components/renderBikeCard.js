@@ -26,6 +26,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                 });
             } else {
             //Display errors
+            // TO DO: ERROR POP UP
                 res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
             }
         })
@@ -50,7 +51,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
         setTimeToEdit(() => !timeToEdit)
     }
 
-    //console.log(thisBike)
+    console.log("this bike posted", thisBikePosted)
 
     return (
         <>      
@@ -63,7 +64,7 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                     :
                         <img
                             src={thisBikePosted.bike_photo}
-                            alt={"bike photo"}
+                            alt={"bike photo not user pic"}
                         />
                     }
             </div>

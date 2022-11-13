@@ -1,24 +1,25 @@
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function RenderPhotos({ thisPhoto, currentUser }) {
+export default function RenderPhotos({ thisPhoto, currentUser, onDelete }) {
 
     const [errors, setErrors] = useState([])
 
     function destroyPhotoAH() {
-        fetch(`/userpersonalphotos/${thisPhoto.id}`,{
+        fetch(`/user_personal_photos/${thisPhoto.id}`,{
             method:'DELETE'
           })
           .then(res => {
               if(res.ok){
                 console.log(`you may have deleted it from here but you can never really delete photos can you hahhahaehehheh`)
+                onDelete()
               }else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
               }
           })
     }
 
-    console.log('this photo', thisPhoto)
+    // console.log('this photo', thisPhoto)
 
     return (
         <>      

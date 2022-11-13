@@ -9,7 +9,8 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
         bike_name: '',
         brand: '',
         bike_type: '',
-        model: ''
+        model: '',
+        bike_photo: ''
     })
 
     const [bikePhotoFile, setBikePhotoFile] = useState(null)
@@ -21,8 +22,6 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
             setFormData(dramaType)
         }
     },[])
-
-
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -46,9 +45,11 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
             formDataSubmit.append("brand", formData.brand)
             formDataSubmit.append("bike_type", formData.bike_type)
             formDataSubmit.append("model", formData.model)
+            formDataSubmit.append("bike_photo", formData.bike_photo)
             formDataSubmit.append("user_id", currentUser.id)
-            formDataSubmit.append("bike_photo_file", bikePhotoFile)
-
+            if (bikePhotoFile) {
+                formDataSubmit.append("bike_photo_file", bikePhotoFile)
+            }
 
         onClickDramaBike(bikeStuff, formDataSubmit)
     }

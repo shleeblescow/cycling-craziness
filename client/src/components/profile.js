@@ -137,6 +137,7 @@ export default function Profile({currentUser}){
 
     function postPhotoDrama(){
         setIsClickedPhotoPost(() => !isClickedPhotoPost)
+        fetchUserFunPhotos(currentUser)
     }
 
     function handleDoneEditing() {
@@ -291,6 +292,7 @@ export default function Profile({currentUser}){
                             key={uuid()} 
                             thisPhoto={eachPhoto}
                             currentUser={currentUser}
+                            onDelete={() => fetchUserFunPhotos(currentUser)}
                         />
                     )}
                     </div>

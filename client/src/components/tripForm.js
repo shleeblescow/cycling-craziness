@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom';
 
 export default function TripForm({currentUser, onClickDrama, dramaType}) {
     
@@ -37,6 +36,8 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
 
     function onSubmit(e){
         e.preventDefault()
+
+        console.log('form data in on submit', formData)
         
         const tripStuff = {
             "link": formData.link,
@@ -69,7 +70,9 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
             formDataSubmit.append("departure_month", formData.departure_month)
             formDataSubmit.append("about_trip", formData.about_trip)
             formDataSubmit.append("creator_id", currentUser.id)
-            formDataSubmit.append("trip_photo_file", tripPhotoFile)
+            if (tripPhotoFile) {
+                formDataSubmit.append("trip_photo_file", tripPhotoFile)
+            }
 
         onClickDrama(tripStuff, formDataSubmit)
     }

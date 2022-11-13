@@ -4,5 +4,5 @@ class Trip < ApplicationRecord
 
     has_one_attached :trip_photo_file
 
-    validates :link, :trip_name, :location, :total_mileage, :total_vert, :daily_mileage, :est_total_weeks, :departure_city, :final_city, :departure_month, :about_trip, presence: :true
+    validates :trip_name, :location, :total_mileage, :total_vert, :daily_mileage, :est_total_weeks, :departure_city, :final_city, :departure_month, :about_trip, presence: :true
 end

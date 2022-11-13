@@ -107,6 +107,7 @@ function App() {
               allTrips={allTrips}
               currentUser={currentUser}
               allJoins={allJoins}
+              fetchJoinsData={fetchJoinsData}
             />
           }/>
          <Route exact path="/browsetrips/create" element={
