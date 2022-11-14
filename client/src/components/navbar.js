@@ -31,12 +31,12 @@ export default function Navbar({setCurrentUser, currentUser}) {
         <div className="inline-flex rounded-md shadow-sm" role="group">
 
             <button onClick={handleSignout} className={buttonClass}>
-                get out of here GROSS
+                logout
             </button>
 
 
             <button onClick={moreNavDrama} className={buttonClass}>
-                let me look at how cool I am, see me thru their eyes
+                my profile
             </button>
 
             <button onClick={andMoreNavDrama} className={buttonClass}>
@@ -44,7 +44,7 @@ export default function Navbar({setCurrentUser, currentUser}) {
             </button>
 
             <button onClick={navDrama} className={buttonClass}>
-                {'<~'} nvm take me back to the other trips
+                all trips
             </button>
 
 

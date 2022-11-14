@@ -38,6 +38,7 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
                     setIsSaddled(() => !isSaddled)
                 })
             }else {
+                // TO DO: ERROR POP UP
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }
         })

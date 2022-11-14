@@ -21,16 +21,20 @@ export default function Browse({ allTrips, fetchTrips, fetchJoinsData, currentUs
 
             <br/><br/>
 
-            <h1>oooohhhh so you think you're cool enough to go on a bikepacking trip?  what a LOSERERSIHF:OSIHfsfIHSFD</h1>
+            <h2 className="text-4xl font-bold dark:text-white">some sick trips</h2>
+            <h3 className="text-3xl font-semibold text-gray-500 dark:text-white"><i>for your consideration</i></h3>
             
-            <br/><br/>
+            
+            <br/>
 
             {allTrips.map((eachTrip) => 
-                <RenderTripCard
-                    key={uuid()} 
-                    thisTrip={eachTrip}
-                    onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
-                />
+                <div key={uuid()} >
+                    <RenderTripCard
+                        thisTrip={eachTrip}
+                        onButtonDrama={() => navigate(`/browsetrips/${eachTrip.id}`)}
+                    />
+                    <br/>
+                </div>
             )}
 
 
