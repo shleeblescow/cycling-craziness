@@ -23,6 +23,6 @@ class UserPersonalPhotosController < ApplicationController
     private
 
     def fun_photo_params
-        params.permit(:user_id, :fun_photo_file)
+        params.permit(:user_id, :fun_photo_file, :photo_caption)
     end
 end

@@ -19,7 +19,7 @@ export default function RenderPhotos({ thisPhoto, currentUser, onDelete }) {
           })
     }
 
-    // console.log('this photo', thisPhoto)
+    console.log('this photo', thisPhoto)
 
     return (
         <>      
@@ -28,6 +28,7 @@ export default function RenderPhotos({ thisPhoto, currentUser, onDelete }) {
                     src={thisPhoto.fun_photo_file}
                     alt={"fun photo"}
                 />
+                <p>{thisPhoto.photo_caption}</p>
                 {thisPhoto.user_id == currentUser.id ?
                     <button 
                         onClick={destroyPhotoAH}>
