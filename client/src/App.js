@@ -73,7 +73,8 @@ function App() {
             setCurrentUser={setCurrentUser}
           />
           :
-          <h2>{"log in to get dirty (and flirty??)"}</h2>
+          // <h2>{"log in to get dirty (and flirty??)"}</h2>
+          <></>
       }
 
       <br/>

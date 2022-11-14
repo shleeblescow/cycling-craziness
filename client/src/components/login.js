@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
+// CSS Stuff: make the input boxes NOT span
 
 function Login({onUpdateUser}) {
     
@@ -45,28 +46,49 @@ function Login({onUpdateUser}) {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
-      }
+    }
+
+    const buttonClass = 'py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white'
+    const linkClass = 'font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline'
+    const labelClass = 'block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+    const inputClass = 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
+    const headingClass = "mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
+    const gradiantClass = 'text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400'
+    const smallerClass = "ml-2 font-semibold text-gray-500 dark:text-gray-400"
+
     return (
         <> 
-            <form onSubmit={onSubmit}>
-            <label>
+            <h1 className={headingClass}><span className={gradiantClass}> Welcome to This website that still needs a name</span></h1>
+            <h1 className={headingClass}><small className={smallerClass}>log in to get started</small></h1>
+            <form onSubmit={onSubmit} className="mb-5">
+            <label className={labelClass}>
                 username:
             </label>
-            <input type='text' name='username' value={username} onChange={handleChange} />
+            <input type='text' name='username' value={username} onChange={handleChange} className={inputClass} />
         
-            <label>
+            <br/><br/>
+
+            <label className={labelClass}>
                 password:
             </label>
-            <input type='password' name='password' value={password} onChange={handleChange} />
-        
-        
-            <input type='submit' value='sup dawg' />
+            <input type='password' name='password' value={password} onChange={handleChange} className={inputClass}  />
+
+            {errors? <div>{errors}</div>:null}
+
+            <br/><br/>            
+
+            <button className={buttonClass}>
+                <input type='submit' value='sup dawg' />
+            </button>
         </form>
-        {errors? <div>{errors}</div>:null}
-        <p>dont have an accnt?</p>
-        <button onClick={() => navigate("/signup")}>
-            <i>Saddle up</i>
-        </button>
+
+        <br/><br/>
+
+
+        <p>dont have an account?</p>
+        <Link to={"/signup"} className={linkClass}>
+            <i>get pedaling</i>
+        </Link>
         </>
     )
 }

@@ -24,6 +24,7 @@ export default function PostTrip({currentUser}){
                       makeAJoin(tripStuff)
                   })
               }else {
+                // TO DO: ERROR POP UP
                   res.json().then(json => setErrors(Object.entries(json.errors)))
               }
         })
