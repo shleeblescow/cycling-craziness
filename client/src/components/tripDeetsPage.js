@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import TripForm from './tripForm';
 
+// CSS TO DO: all buttons same size maybe
 export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
 
     const navigate = useNavigate();
@@ -141,37 +142,49 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
     const cheaterProp = trip
     //console.log(cheaterProp.trip_photo_file)
 
+    const bigClassBlack = 'mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white'
+    const imgClass = 'rounded-t-lg rounded-b-lg'
+    const linkClass = 'font-medium text-blue-600 dark:text-blue-500 hover:underline'
+    const buttonClass = 'py-3 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg rounded-r-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white'
+    // object-cover h-68 w-120'
+
+
     if(errors) return <h1> omg you broke something</h1>
 
     return(
 
-        <div>
+        <div className='p-4'>
 
-            you? youre gonna go on this trip?  yyeaaahhhh right buckaroo lmaooooooo
+                <br/>
 
-            <br/><br/><br/>
+                <h1 className={bigClassBlack}>{trip.trip_name}</h1>
 
-                <h1>{trip.trip_name}</h1>
+                <br/>
 
-                {trip.trip_photo_file ?
-                        <img
-                            src={trip.trip_photo_file}
-                            alt={"trip photo"}
-                        />
-                    :
-                        <img
-                            src={trip.route_photo}
-                            alt={"bike photo"}
-                        />
+                <div className='flex w-1/2 h-full overflow-hidden'>
+                    {trip.trip_photo_file ?
+                            <img
+                                className={imgClass}
+                                src={trip.trip_photo_file}
+                                alt={"trip photo"}
+                            />
+                        :
+                            <img
+                                className={imgClass}
+                                src={trip.route_photo}
+                                alt={"bike photo"}
+                            />
                     }
+                </div>
                 
-                <p>Location: {trip.location}</p>
-                <p>Departing from: {trip.departure_city} in {trip.departure_month}</p>
-                <p>Ending in: {trip.final_city}</p>
-                <p>{trip.total_mileage} total miles - {trip.total_vert} total vert</p>
+                <p><b>Location:</b> {trip.location}</p>
+                <p><b>Departing from:</b> {trip.departure_city} in {trip.departure_month}</p>
+                <p><b>Ending in:</b> {trip.final_city}</p>
+                <p><i>{trip.total_mileage} total miles - {trip.total_vert} total vert</i></p>
+                <br/>
                 {trip.link ?
-                    <p>link to more trip deets:  
-                        <Link to={trip.link}>
+                    <p>extra deets:  
+                        <Link to={trip.link} className={linkClass}>
                             {trip.link}
                         </Link>
                     </p>
@@ -179,26 +192,31 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                     <></>
             
                 }
+                <br/>
                 <div>
 
-                    <div>
-                        <p>about the trip: {trip.about_trip}</p>
+                    <div className='flex w-1/2 h-full'>
+                        <p><b>about the trip:</b> {trip.about_trip}</p>
                     </div>
 
+                    <br/>
+
                     <div>
-                        <h3>about the organizer</h3>
+                        <h3><b>about the organizer</b></h3>
                             basics: 
-                            <Link to={`/profile/${organizer.id}`}>
+                            <Link to={`/profile/${organizer.id}`} className={linkClass}>
                                  {organizer.name} - {organizer.hometown} - {organizer.age}
                             </Link>
                             <p>style: {organizer.bikepacking_method}</p>
                     </div>
 
+                    <br/>
+
                     <div>
-                        <h4>meet the gang ({attendees.length} peep{attendees.length == 1 ? null : "s"} #sendingit)</h4>
+                        <h4><b>meet the gang</b> ({attendees.length} peep{attendees.length == 1 ? null : "s"} #sendingit)</h4>
                             {attendees.map((peep) =>
                                 <div key={uuid()} >
-                                    <Link to={`/profile/${peep.id}`}>
+                                    <Link to={`/profile/${peep.id}`} className={linkClass}>
                                         {peep.name} - {peep.age} - '{peep.username}'
                                     </Link>
                                     <br/><br/>
@@ -213,11 +231,11 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                 <div>
                     {trip.creator_id == currentUser.id ?
                         <div>
-                            <button onClick={clickDrama}>
+                            <button onClick={clickDrama} className={buttonClass}>
                                     edit trip
                             </button>
                             <br/><br/>
-                            <button onClick={deleteTripDrama}>
+                            <button onClick={deleteTripDrama} className={buttonClass}>
                                     delete trip
                             </button>
                             <div>
@@ -238,11 +256,11 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                     :
                     <div>
                         {isAttendee ? 
-                            <button onClick={leaveTripDrama}>
+                            <button onClick={leaveTripDrama} className={buttonClass}>
                                 leave trip
                             </button>
                             :
-                            <button onClick={joinTripDrama}>
+                            <button onClick={joinTripDrama} className={buttonClass}>
                                 join trip
                             </button>
                         }

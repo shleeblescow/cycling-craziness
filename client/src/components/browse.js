@@ -17,7 +17,7 @@ export default function Browse({ allTrips, fetchTrips, fetchJoinsData, currentUs
 
     return(
 
-        <div>
+        <div className='p-4'>
 
             <br/><br/>
 
