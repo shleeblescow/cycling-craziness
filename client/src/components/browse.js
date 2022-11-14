@@ -19,7 +19,7 @@ export default function Browse({ allTrips, fetchTrips, fetchJoinsData, currentUs
 
         <div className='p-4'>
 
-            <br/><br/>
+            <br/>
 
             <h2 className="text-4xl font-bold dark:text-white">some sick trips</h2>
             <h3 className="text-3xl font-semibold text-gray-500 dark:text-white"><i>for your consideration</i></h3>
