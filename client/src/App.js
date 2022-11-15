@@ -116,7 +116,7 @@ function App() {
               currentUser={currentUser}
             />
           }/>
-          <Route exact path="/profile/:id" element={
+          <Route exact path="/userprofile/:id" element={
             <Profile
               currentUser={currentUser}
             />

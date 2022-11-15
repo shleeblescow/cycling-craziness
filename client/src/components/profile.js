@@ -12,6 +12,7 @@ export default function Profile({currentUser}){
 
     const navigate = useNavigate();
     const params = useParams();
+    const pageID = params.id
 
     // might have to push these up later but chillin for now i think
     const [joinedTrips, setJoinedTrips] = useState([])
@@ -43,7 +44,7 @@ export default function Profile({currentUser}){
                 console.log('loser')
             }
         })
-    },[])
+    },[pageID])
 
     const fetchJoinedTrips = (thisUserPage) => {
         fetch(`/joinedtrips/${thisUserPage.id}`)
@@ -52,7 +53,7 @@ export default function Profile({currentUser}){
                 res.json()
                 .then((joinedTrips) => {
                     setJoinedTrips(joinedTrips)
-                    console.log(joinedTrips)
+                    // console.log(joinedTrips)
                 })
             } else {
                 console.log('loser')
@@ -67,7 +68,7 @@ export default function Profile({currentUser}){
                 res.json()
                 .then((createdTrips) => {
                     setCreatedTrips(createdTrips)
-                    console.log(createdTrips)
+                    // console.log(createdTrips)
                 })
             }
         })
@@ -93,7 +94,7 @@ export default function Profile({currentUser}){
                 res.json()
                 .then((userFunPhotos) => {
                     setUserFunPhotos(userFunPhotos)
-                    console.log("photo fetch", userFunPhotos)
+                    // console.log("photo fetch", userFunPhotos)
                     
                     //console.log("profile bikes ", profileBikes)
                 })
@@ -104,7 +105,7 @@ export default function Profile({currentUser}){
     // adding a new bike to their profile
     function postBikeNowPls(bikeStuff, formDataSubmit) {
         
-        console.log(bikeStuff)
+        // console.log(bikeStuff)
 
         fetch(`/bikes`,{
             method:'POST',
@@ -115,10 +116,11 @@ export default function Profile({currentUser}){
           .then(res => {
               if(res.ok){
                   res.json().then(bikeStuff => {
-                      console.log(`${bikeStuff.bike_name} is such a stupid bike`)
+                    //   console.log(`${bikeStuff.bike_name} is such a stupid bike`)
                       setProfileBikes(() => [...profileBikes, bikeStuff])
                   })
               }else {
+                // TO DO: ERROR POP UP
                   res.json().then(json => setErrors(Object.entries(json.errors)))
               }
         })
@@ -152,33 +154,43 @@ export default function Profile({currentUser}){
     //     console.log("omg we're gonna do action cable!")
     // }
 
+
+    const cardDiv = "max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    const imgClass = 'rounded-t-lg rounded-b-lg object-cover h-48 w-96'
+    const bigClassBlack = 'mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white'
+    const bigCLassGray = 'mb-2 text-2xl font-semibold tracking-tight text-gray-500 dark:text-white'
+    const smallClass = 'mb-3 font-normal text-gray-700 dark:text-gray-400'
+    const blueButtonClass = 'inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+
     return(
-        <>
+        <div className='p-4'>
 
             <div>
-                <h1>{thisUserPage.username}</h1>
+                <h1 className={bigClassBlack}>{thisUserPage.username}</h1>
                 <img
+                    className={imgClass}
                     src={thisUserPage.profile_pic_file}
                     alt={'ugly ass person'}
                 />
-                <p>name: {thisUserPage.name}</p>
-                <p>hometwon: {thisUserPage.hometown}</p>
-                <p>age: {thisUserPage.age}</p>
-                <p>what im all about in life: {thisUserPage.bio}</p>
-                <p>what im all about in bikepacking: {thisUserPage.bikepacking_method}</p>
+                <p><b>Name:</b> {thisUserPage.name}</p>
+                <p><b>Hometown:</b> {thisUserPage.hometown}</p>
+                <p><b>Age:</b> {thisUserPage.age}</p>
+                <p><b>Life Bio:</b> {thisUserPage.bio}</p>
+                <p><b>Bikepacking Style:</b> {thisUserPage.bikepacking_method}</p>
             </div>
 
             {currentUser.id == thisUserPage.id ?
                 <div>
-                    <button onClick={seeFormDrama}>
-                            pls let me change my identity
+                    <button onClick={seeFormDrama} className={blueButtonClass}>
+                            edit profile
                     </button>
-                    <br/>
-                    <button onClick={bikeDramaPost}>
-                            add a fresh bike
+                    {"   "}
+                    <button onClick={bikeDramaPost} className={blueButtonClass}>
+                            add bike
                     </button>
-                    <button onClick={postPhotoDrama}>
-                            add some pics to the prof
+                    {"   "}
+                    <button onClick={postPhotoDrama} className={blueButtonClass}>
+                            add pics
                     </button>
                 </div>
             :
@@ -228,17 +240,20 @@ export default function Profile({currentUser}){
                 <></>
             }   
 
+            <br/>
             <div>
-                <h2>{thisUserPage.username}'s babies</h2>
+                <h2 className={bigCLassGray}>{thisUserPage.username}'s Bikes</h2>
                 {profileBikes.length >= 1 ?
                     <div>
                     {profileBikes.map((eachBike) => 
-                        <RenderBikeCard
-                            key={uuid()} 
-                            onDelete={() => fetchProfileBikes(thisUserPage)}
-                            thisBike={eachBike}
-                            currentUser={currentUser}
-                        />
+                        <div key={uuid()} >
+                            <RenderBikeCard
+                                onDelete={() => fetchProfileBikes(thisUserPage)}
+                                thisBike={eachBike}
+                                currentUser={currentUser}
+                            />
+                            <br/>
+                        </div>
                     )}
                     </div>
                     :
@@ -247,7 +262,7 @@ export default function Profile({currentUser}){
             </div>  
 
             <div>
-                <h2>my lil trips i made go me</h2>
+                <h2 className={bigCLassGray}>Trips Organized by {thisUserPage.username}</h2>
                 {createdTrips.length >= 1 ?
                     <div>
                     {createdTrips.map((eachTrip) => 
@@ -267,7 +282,7 @@ export default function Profile({currentUser}){
 
 
             <div>
-                <h2>trips im totally crashing</h2>
+            <h2 className={bigCLassGray}>Trips {thisUserPage.username} is Attending</h2>
                 {joinedTrips.length >= 1 ?
                     <div>
                         {joinedTrips.map((eachTrip) => 
@@ -283,8 +298,9 @@ export default function Profile({currentUser}){
                 }
             </div>
 
+            <br/>
             <div>
-                <h2>{thisUserPage.username}'s photos</h2>
+                <h2 className={bigCLassGray}>{thisUserPage.username}'s Photos</h2>
                 {userFunPhotos.length >= 1 ?
                     <div>
                         {userFunPhotos.map((eachPhoto) => 
@@ -300,7 +316,7 @@ export default function Profile({currentUser}){
                     <p>{thisUserPage.username} doesn't have any photos what a pleeb</p>
                 }
             </div>
-        </>
+        </div>
 
 
 

@@ -204,7 +204,7 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                     <div>
                         <h3><b>about the organizer</b></h3>
                             basics: 
-                            <Link to={`/profile/${organizer.id}`} className={linkClass}>
+                            <Link to={`/userprofile/${organizer.id}`} className={linkClass}>
                                  {organizer.name} - {organizer.hometown} - {organizer.age}
                             </Link>
                             <p>style: {organizer.bikepacking_method}</p>
@@ -216,7 +216,7 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                         <h4><b>meet the gang</b> ({attendees.length} peep{attendees.length == 1 ? null : "s"} #sendingit)</h4>
                             {attendees.map((peep) =>
                                 <div key={uuid()} >
-                                    <Link to={`/profile/${peep.id}`} className={linkClass}>
+                                    <Link to={`/userprofile/${peep.id}`} className={linkClass}>
                                         {peep.name} - {peep.age} - '{peep.username}'
                                     </Link>
                                     <br/><br/>

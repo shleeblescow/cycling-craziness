@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 
-// CSS Stuff: make the input boxes NOT span
+// CSS Stuff: make the input boxes NOT span, maybe smaller text in h2 and bigger input labels
 
 function Login({onUpdateUser}) {
     

@@ -13,7 +13,7 @@ export default function Navbar({setCurrentUser, currentUser}) {
     }
 
     function moreNavDrama() {
-        navigate(`/profile/${currentUser.id}`)
+        navigate(`/userprofile/${currentUser.id}`)
     }
 
     function andMoreNavDrama() {
