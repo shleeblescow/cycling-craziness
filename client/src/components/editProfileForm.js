@@ -62,36 +62,44 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
         })
     }
 
+    const fileClass = "block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+    const labelClass = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+    const textClass = "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    const blueButtonClass = 'inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+
+
     return (
         <div>
             {errors?errors.map(e => <div>{e}</div>):null}
             <form onSubmit={onSubmit}>
-                <label>in what city is your LBS</label>
-                <input type='text' name='hometown' value={formData.hometown} onChange={handleChange} />
+                <label className={labelClass}>your hometown:</label>
+                <input type='text' name='hometown' value={formData.hometown} className={textClass} onChange={handleChange} />
                 
-                <br/><br/>
+                <br/>
 
-                <label>ya old</label>
+                <label className={labelClass}>your age:</label>
                 <input type='integer' name='age' value={formData.age} onChange={handleChange} />
                 
                 <br/><br/>
 
-                <label>what are you all about man</label>
-                <input type='text' name='bio' value={formData.bio} onChange={handleChange} />
+                <label className={labelClass}>your life story:</label>
+                <textarea type='text' name='bio' value={formData.bio} rows="2"  className={textClass} onChange={handleChange} />
                 
                 <br/><br/>
 
-                <label>what's you stryle bru</label>
-                <input type='text' name='bikepacking_method' value={formData.bikepacking_method} onChange={handleChange} />
+                <label className={labelClass}>your bikepacking style:</label>
+                <textarea type='text' name='bikepacking_method' value={formData.bikepacking_method} rows="2" className={textClass} onChange={handleChange} />
 
                 <br/><br/>
 
-                <label> upload a sick prof pic dude </label>
-                <input type='file' accept="image/*" onChange={(e) => setUploadedFile(e.target.files[0])}/>
+                <label className={labelClass}> upload a profile picture </label>
+                <input type='file' accept="image/*" className={fileClass} onChange={(e) => setUploadedFile(e.target.files[0])}/>
 
                 <br/><br/>
 
-                <input type='submit' value='send the change' />
+                <button className={blueButtonClass}>
+                    <input type='submit' value='save changes'/>
+                </button>
             </form>
             {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
         </div>

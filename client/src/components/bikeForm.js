@@ -54,59 +54,68 @@ export default function BikeForm({currentUser, onClickDramaBike, dramaType}){
         onClickDramaBike(bikeStuff, formDataSubmit)
     }
 
+    const fileClass = "block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+    const labelClass = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+    const textClass = "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    const blueButtonClass = 'inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+
     return (
-        <> 
-        <div>you think your bike is really that cool, huh?  LOSER</div>
-
-        <br/><br/>
-
-        <form onSubmit={onSubmit}>
-
-        <label>
-        you gave your bike a name !!??
-        </label>
-        <input type='text' name='bike_name' value={formData.bike_name} onChange={handleChange} />    
-        
-        <br/><br/>
-
-        <label>
-        now youre gonna get policital about it
-        </label>  
-        <input type='text' name='brand' value={formData.brand} onChange={handleChange} />
-       
-        <br/><br/>
-
-        <label>
-        gravel mtb road whatver you chose is the bad one
-        </label>
-        <input type='text' name='bike_type' value={formData.bike_type} onChange={handleChange} />
-
-        <br/><br/>
-
-        <label>
-        like anyone know what your arbitrary bike model is
-        </label>  
-        <input type='text' name='model' value={formData.model} onChange={handleChange} />
-
-        <br/><br/>
-
-        <label>
-        ofc you have a photo of it, loser, upload it here in whatever format
-        </label>  
-        <input type='file' accept="image/*" onChange={(e) => setBikePhotoFile(e.target.files[0])} />
+        <>
 
         <br/>
 
-        <p>OR</p>
+        <form onSubmit={onSubmit}>
 
-        <label>
-        you really don't have a photo saved of it?  if you really want you can upload a link to a photo of it I guess...
+        <label className={labelClass}>
+        your bike's name:
+        </label>
+        <input type='text' name='bike_name' value={formData.bike_name} className={textClass} onChange={handleChange} />    
+        
+        <br/><br/>
+
+        <label className={labelClass}>
+        your bike's brand:
         </label>  
-        <input type='text' name='bike_photo' value={formData.bike_photo} onChange={handleChange} />
+        <input type='text' name='brand' value={formData.brand} className={textClass} onChange={handleChange} />
+       
+        <br/><br/>
+
+        <label className={labelClass}>
+        type of bike {"(road, mtb, etc)"}:
+        </label>
+        <input type='text' name='bike_type' value={formData.bike_type} className={textClass} onChange={handleChange} />
 
         <br/><br/>
 
-        <input type='submit' value='everyone hates your bike' />
+        <label className={labelClass}>
+        bike model:
+        </label>  
+        <input type='text' name='model' value={formData.model} className={textClass} onChange={handleChange} />
+
+        <br/><br/>
+
+        <label className={labelClass}>
+        bike photo {'(any img type accepted)'}:
+        </label>  
+        <input type='file' accept="image/*" className={fileClass} onChange={(e) => setBikePhotoFile(e.target.files[0])} />
+
+        <br/><br/>
+
+        <p>OR</p>
+
+        <br/>
+
+        <label className={labelClass}>
+        link to photo of bike
+        </label>  
+        <input type='text' name='bike_photo' value={formData.bike_photo} className={textClass} onChange={handleChange} />
+
+        <br/><br/>
+
+        <button className={blueButtonClass}>
+                    <input type='submit' value='save changes'/>
+        </button>
+
       </form>
       {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
 
