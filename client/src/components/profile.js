@@ -131,15 +131,39 @@ export default function Profile({currentUser}){
     // all the button and button state drama
     function seeFormDrama(){
         setIsClicked(() => !isClicked)
+
+        if (isClickedPhotoPost) {
+            setIsClickedPhotoPost(false)
+        }
+
+        if (isClickedBikePost) {
+            setIsClickedBikePost(false)
+        }
     }
 
     function bikeDramaPost() {
         setIsClickedBikePost(() => !isClickedBikePost)
+
+        if (isClicked) {
+            setIsClicked(false)
+        }
+
+        if (isClickedPhotoPost) {
+            setIsClickedPhotoPost(false)
+        }
     }
 
     function postPhotoDrama(){
         setIsClickedPhotoPost(() => !isClickedPhotoPost)
         fetchUserFunPhotos(currentUser)
+
+        if (isClicked) {
+            setIsClicked(false)
+        }
+
+        if (isClickedBikePost) {
+            setIsClickedBikePost(false)
+        }
     }
 
     function handleDoneEditing() {
@@ -295,6 +319,7 @@ export default function Profile({currentUser}){
             </div>
 
             <br/>
+
             <div>
                 <h2 className={bigCLassGray}>{thisUserPage.username}'s Photos</h2>
                 {userFunPhotos.length >= 1 ?
@@ -314,6 +339,8 @@ export default function Profile({currentUser}){
                     <p>{thisUserPage.username} doesn't have any photos what a pleeb</p>
                 }
             </div>
+
+
         </div>
 
 
