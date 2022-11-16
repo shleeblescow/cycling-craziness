@@ -37,11 +37,11 @@ export default function Profile({currentUser}){
                     fetchCreatedTrips(user)
                     fetchProfileBikes(user)
                     fetchUserFunPhotos(user)
-                    console.log('who should be displayed here', user)
+                    // console.log('who should be displayed here', user)
 
                 })
             } else {
-                console.log('loser')
+                console.log('error loading profile page')
             }
         })
     },[pageID])
@@ -56,7 +56,7 @@ export default function Profile({currentUser}){
                     // console.log(joinedTrips)
                 })
             } else {
-                console.log('loser')
+                console.log('unable to fetch joined trip')
             }
         })
     }
@@ -168,7 +168,7 @@ export default function Profile({currentUser}){
                 <img
                     className={imgClass}
                     src={thisUserPage.profile_pic_file}
-                    alt={'ugly ass person'}
+                    alt={'profile picture'}
                 />
                 <p><b>Name:</b> {thisUserPage.name}</p>
                 <p><b>Hometown:</b> {thisUserPage.hometown}</p>
@@ -214,7 +214,6 @@ export default function Profile({currentUser}){
 
             {isClickedBikePost ?
                 <div>
-                    <h4>add a bike</h4>
                     <BikeForm
                         dramaType={"post"}
                         currentUser={currentUser}
@@ -228,7 +227,6 @@ export default function Profile({currentUser}){
 
             {isClickedPhotoPost ?
                 <div>
-                    <h4>add a pic</h4>
                     <AddPhotosForm
                         currentUser={currentUser}
                         onDoneEditing={postPhotoDrama}

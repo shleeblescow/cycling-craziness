@@ -79,39 +79,41 @@ export default function RenderBikeCard({ thisBike, currentUser, onDelete }) {
                         />
                     }
             </div>
-            <h4 className={bigClassBlack}>{thisBikePosted.bike_name}</h4>
-            <p className={bigCLassGray}>Type: {thisBikePosted.bike_type}</p>
-            <p><span className={smallClass}>{thisBikePosted.brand} <span><i>"{thisBikePosted.model}"</i></span></span></p>
-            <div>
-                {currentUser.id == thisBikePosted.user_id ?
-                    <div>
-                        <button
-                            className={blueButtonClass}
-                            onClick={toggleEditButton}>
-                            editBike
-                        </button>
-                        {"    "}
-                        <button 
-                            className={blueButtonClass}
-                            onClick={destroyBikeAH}>
-                            delete bike
-                        </button>
-                    </div>
-                    :
-                    <></>
-                }
-            </div>
-            <div>
-                {timeToEdit ?
-                    <BikeForm
-                        dramaType={thisBikePosted}
-                        currentUser={currentUser}
-                        onClickDramaBike={(bikeStuff, formDataSubmit) => editBikeNowPls(bikeStuff, formDataSubmit)}
-                        onDoneEditingBike={toggleEditButton}
-                    />
-                    :
-                    <></>
-                }
+            <div className='p-5'>
+                <h4 className={bigClassBlack}>{thisBikePosted.bike_name}</h4>
+                <p className={bigCLassGray}>Type: {thisBikePosted.bike_type}</p>
+                <p><span className={smallClass}>{thisBikePosted.brand} <span><i>"{thisBikePosted.model}"</i></span></span></p>
+                <div>
+                    {currentUser.id == thisBikePosted.user_id ?
+                        <div>
+                            <button
+                                className={blueButtonClass}
+                                onClick={toggleEditButton}>
+                                editBike
+                            </button>
+                            {"    "}
+                            <button 
+                                className={blueButtonClass}
+                                onClick={destroyBikeAH}>
+                                delete bike
+                            </button>
+                        </div>
+                        :
+                        <></>
+                    }
+                </div>
+                <div>
+                    {timeToEdit ?
+                        <BikeForm
+                            dramaType={thisBikePosted}
+                            currentUser={currentUser}
+                            onClickDramaBike={(bikeStuff, formDataSubmit) => editBikeNowPls(bikeStuff, formDataSubmit)}
+                            onDoneEditingBike={toggleEditButton}
+                        />
+                        :
+                        <></>
+                    }
+                </div>
             </div>
         </div>
     )

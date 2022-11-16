@@ -25,13 +25,13 @@ function App() {
       if (res.ok) {
         res.json()
         .then((user) => {
-          console.log('hellow')
+          console.log('access granted')
           updateUser(user);
           fetchJoinsData()
           fetchTrips()
         });
       } else {
-        console.log('nope')
+        console.log('not authorized')
       }
     })
   },[])

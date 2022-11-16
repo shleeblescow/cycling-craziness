@@ -235,9 +235,6 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                                     edit trip
                             </button>
                             <br/><br/>
-                            <button onClick={deleteTripDrama} className={buttonClass}>
-                                    delete trip
-                            </button>
                             <div>
                                 {
                                     isClicked ?
@@ -246,12 +243,16 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                                             currentUser={currentUser}
                                             onClickDrama={(tripStuff, formDataSubmit) => handleEditTrip(tripStuff, formDataSubmit)}
                                             dramaType={cheaterProp}
+                                            buttonText={'Save Changes'}
                                         />
                                     </div>
                                     :
                                     <></>
                                 }   
                             </div>
+                            <button onClick={deleteTripDrama} className={buttonClass}>
+                                    delete trip
+                            </button>
                     </div>
                     :
                     <div>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-export default function TripForm({currentUser, onClickDrama, dramaType}) {
+export default function TripForm({currentUser, onClickDrama, dramaType, buttonText}) {
     
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({
@@ -77,111 +77,119 @@ export default function TripForm({currentUser, onClickDrama, dramaType}) {
         onClickDrama(tripStuff, formDataSubmit)
     }
 
-    return (
-        <> 
-        <div>trip info but no one is gonna sign up</div>
+    const fileClass = "block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+    const labelClass = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+    const textClass = "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    const blueButtonClass = 'inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
 
-        <br/><br/>
+
+    return (
+        <div className='p-4'> 
 
         <form onSubmit={onSubmit}>
 
-        <label>
+        <label className={labelClass}>
         Trip Name
         </label>
-        <input type='text' name='trip_name' value={formData.trip_name} onChange={handleChange} />    
+        <input className={textClass} type='text' name='trip_name' value={formData.trip_name} onChange={handleChange} />    
         
         <br/><br/>
 
-        <label>
-        Link
+        <label className={labelClass}>
+        Link <i>(optional)</i>
         </label>  
-        <input type='text' name='link' value={formData.link} onChange={handleChange} />
+        <input className={textClass} type='text' name='link' value={formData.link} onChange={handleChange} />
        
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
         Location
         </label>
-        <input type='text' name='location' value={formData.location} onChange={handleChange} />
+        <input className={textClass} type='text' name='location' value={formData.location} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
         Route Photo Link Upload
         </label>  
-        <input type='text' name='route_photo' value={formData.route_photo} onChange={handleChange} />
+        <input className={textClass} type='text' name='route_photo' value={formData.route_photo} onChange={handleChange} />
 
         <br/>
 
-        <p>OR</p>
+        <p><i>-OR-</i></p>
 
-        <label>
-         {"your own personal photo of the route wow (screenshot, jpeg, whatevs')"}
-        </label>  
-        <input type='file' accept="image/*" onChange={(e) => setTripPhotoFile(e.target.files[0])} />
+        <br/>
+
+        <label className={labelClass}>
+         Route Photo File Upload <i>jpeg, img, etc.</i>
+         </label>
+        <input className={fileClass} type='file' accept="image/*" onChange={(e) => setTripPhotoFile(e.target.files[0])} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Total Mileage
         </label>  
-        <input type='integer' name='total_mileage' value={formData.total_mileage} onChange={handleChange} />
+        <input className={textClass} type='integer' name='total_mileage' value={formData.total_mileage} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Total Vert
         </label>  
-        <input type='integer' name='total_vert' value={formData.total_vert} onChange={handleChange} />
+        <input className={textClass} type='integer' name='total_vert' value={formData.total_vert} onChange={handleChange} />
        
        <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Daily Mileage
         </label>  
-        <input type='integer' name='daily_mileage' value={formData.daily_mileage} onChange={handleChange} />
+        <input className={textClass} type='integer' name='daily_mileage' value={formData.daily_mileage} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Total Trip Weeks
         </label>  
-        <input type='integer' name='est_total_weeks' value={formData.est_total_weeks} onChange={handleChange} />
+        <input className={textClass} type='integer' name='est_total_weeks' value={formData.est_total_weeks} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Departure City
         </label>  
-        <input type='text' name='departure_city' value={formData.departure_city} onChange={handleChange} />
+        <input className={textClass} type='text' name='departure_city' value={formData.departure_city} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Final City
         </label>  
-        <input type='text' name='final_city' value={formData.final_city} onChange={handleChange} />
+        <input className={textClass} type='text' name='final_city' value={formData.final_city} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          Departure Month
         </label>  
-        <input type='text' name='departure_month' value={formData.departure_month} onChange={handleChange} />
+        <input className={textClass} type='text' name='departure_month' value={formData.departure_month} onChange={handleChange} />
 
         <br/><br/>
 
-        <label>
+        <label className={labelClass}>
          About the Trip
         </label>  
-        <input type='text' name='about_trip' value={formData.about_trip} onChange={handleChange} />
+        <input className={textClass} type='text' name='about_trip' value={formData.about_trip} onChange={handleChange} />
 
         <br/><br/>
 
-        <input type='submit' value='good luck hehe LOSEr' />
+        <button className={blueButtonClass}>
+                    <input type='submit' value={buttonText}/>
+        </button>
+
       </form>
       {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
 
-      </>
+      </div>
     )
 }

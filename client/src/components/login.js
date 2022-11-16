@@ -58,15 +58,15 @@ function Login({onUpdateUser}) {
 
     return (
         <div className='p-4'> 
-            <h1 className={headingClass}><span className={gradiantClass}> find some crazy cycling peeps </span></h1>
-            <h1 className={headingClass}><small className={smallerClass}>log in to get started</small></h1>
+            <h1 className={headingClass}><span className={gradiantClass}> Welcome to Cycling Craziness  </span></h1>
+            <h1 className={headingClass}><small className={smallerClass}>log in to find your bikepacking squad</small></h1>
             <form onSubmit={onSubmit} className="mb-5">
             <label className={labelClass}>
                 username:
             </label>
             <input type='text' name='username' value={username} onChange={handleChange} className={inputClass} />
         
-            <br/><br/>
+            <br/>
 
             <label className={labelClass}>
                 password:
@@ -75,14 +75,14 @@ function Login({onUpdateUser}) {
 
             {errors? <div>{errors}</div>:null}
 
-            <br/><br/>            
+            <br/>         
 
             <button className={buttonClass}>
                 <input type='submit' value='sup dawg' />
             </button>
         </form>
 
-        <br/><br/>
+        
 
 
         <p>dont have an account?</p>

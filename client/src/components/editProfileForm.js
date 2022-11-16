@@ -12,7 +12,8 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
       })
 
     const [uploadedFile, setUploadedFile] = useState(null)
-    
+    const [appendImg, setAppendImg] = useState(false)
+
     useEffect(() => {
         fetch(`/users/${currentUser.id}`)
         .then(res => res.json())
@@ -24,6 +25,11 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
+
+    const handleImgChange = (e) => {
+        setUploadedFile(e.target.files[0])
+        setAppendImg(() => true)
+    }
     
     function onSubmit(e){
        
@@ -34,7 +40,7 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
             formDataSubmit.append("hometown", formData.hometown)
             formDataSubmit.append("bio", formData.bio)
             formDataSubmit.append("bikepacking_method", formData.bikepacking_method)
-            if (uploadedFile) {
+            if (appendImg) {
                 formDataSubmit.append("profile_pic_file", uploadedFile)
             }
 
@@ -49,8 +55,6 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
             if(res.ok){
                 res.json()
                 .then((freshIdentity) => { 
-                    console.log(freshIdentity)
-                    console.log('hellow from an updated state')
                     onDoneEditing()
                     onUpdatingIdentity(freshIdentity)
                 });
@@ -69,16 +73,17 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
 
 
     return (
-        <div>
+        <div className='p-4'>
             {errors?errors.map(e => <div>{e}</div>):null}
             <form onSubmit={onSubmit}>
+                
                 <label className={labelClass}>your hometown:</label>
                 <input type='text' name='hometown' value={formData.hometown} className={textClass} onChange={handleChange} />
                 
                 <br/>
 
                 <label className={labelClass}>your age:</label>
-                <input type='integer' name='age' value={formData.age} onChange={handleChange} />
+                <input type='integer' name='age' value={formData.age} className={textClass} onChange={handleChange} />
                 
                 <br/><br/>
 
@@ -93,7 +98,7 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
                 <br/><br/>
 
                 <label className={labelClass}> upload a profile picture </label>
-                <input type='file' accept="image/*" className={fileClass} onChange={(e) => setUploadedFile(e.target.files[0])}/>
+                <input type='file' accept="image/*" className={fileClass} onChange={handleImgChange}/>
 
                 <br/><br/>
 

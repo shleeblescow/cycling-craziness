@@ -55,22 +55,27 @@ export default function PostTrip({currentUser}){
         })
 
         }
+        
+
+    const bigClassBlack = 'mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'
+
 
 
     return(
 
-        <div>
+        <div className='p-4'>
 
-            <br/><br/>
+            <br/>
 
-            there's no way someone is gonna want to bikepack with you, esp for weeks on end, you SMELLY LOSER
+            <h1 className={bigClassBlack}>post a new trip</h1>
 
-            <br/><br/>
+            <br/>
 
             <TripForm 
                 currentUser={currentUser}
                 onClickDrama={(tripStuff) => handlePostTrip(tripStuff)}
                 dramaType={"post"}
+                buttonText={"Post Trip"}
             />
 
 
