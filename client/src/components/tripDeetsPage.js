@@ -22,9 +22,12 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
         .then(res => { 
             if(res.ok){
                 res.json().then(data => {
+                    // console.log(data)
                     setTrip(data)
                     setAttendees(data.users)
                     setOrganizer(data.users.find(peeps => peeps.id == data.creator_id))
+                    // console.log(data.users.find(peeps => peeps.id == data.creator_id))
+                    //setOrganizer(data.find())
                     partOfSquad(data)
             })
             } else {

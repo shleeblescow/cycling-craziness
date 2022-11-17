@@ -59,8 +59,7 @@ export default function EditProfileForm({ onUpdatingIdentity, currentUser, onDon
                     onUpdatingIdentity(freshIdentity)
                 });
             } else {
-            //Display errors
-            // TO DO: ERROR POP UP
+                //Display errors
                 res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
             }
         })

@@ -39,10 +39,11 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
                 })
             } else {
                 // TO DO: ERROR POP UP
-                res.json().then(retErrors => {
-                    setErrors(Object.entries(retErrors.errors))
-                    console.log(retErrors)
-                })
+                // res.json().then(retErrors => {
+                //     setErrors(Object.entries(retErrors.errors))
+                //     console.log(retErrors)
+                // })
+                res.json().then(json => setErrors(Object.entries(json.errors)))
             }
         })
     }
@@ -127,11 +128,7 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
                             </button>
 
                         </form>
-                        {errors ?
-                            errors.map(e => <div>{e[0]+': ' + e[1]}</div>)
-                            :
-                            null
-                        }
+                        {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
                         <div className='p-4'>
                             <button className={blueButtonClass} onClick={navToLI}>
                                 ← back to login page

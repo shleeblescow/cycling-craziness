@@ -7,7 +7,5 @@ class User < ApplicationRecord
 
     has_one_attached :profile_pic_file
 
-    validates :username, :password, presence: :true
-
     has_secure_password
 end

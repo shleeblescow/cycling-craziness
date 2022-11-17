@@ -68,7 +68,7 @@ t1 = Trip.create(
 )
 
 t2 = Trip.create(
-    creator_id: u4.id,
+    creator_id: u2.id,
     link: "https://bikepacking.com/routes/tots-nz/",
     trip_name: "TOTS",
     location: "New Zealand",
@@ -83,6 +83,74 @@ t2 = Trip.create(
     about_trip: 
         "It's finally time!  I'm going to NZ after graduating from my coding bootcamp!!  I am SO STOKED and would
         love to find company to explore this epic landscape!  Mostly camping but htought it would be fun to stay in hostels when psosibel!"
+)
+
+t3 = Trip.create(
+    creator_id: u4.id,
+    # link: "",
+    trip_name: "Tour Aotearoa",
+    location: "New Zealand",
+    route_photo: "https://www.breakingthecycle.education/wp-content/uploads/2018/01/map-baha.jpg",
+    total_mileage: 1900,
+    total_vert: 20000,
+    daily_mileage: 40,
+    est_total_weeks: 5,
+    departure_city: "Auckland",
+    final_city: "Auckland",
+    departure_month: "December",
+    about_trip: 
+        "Biking as much of New Zealand as possible over the course of 5 weeks!  Focusing on morning miles, working pace, and mostly camping."
+)
+
+t4 = Trip.create(
+    creator_id: u2.id,
+    link: "https://bikepacking.com/routes/caldera-500/",
+    trip_name: "Caldera 500",
+    location: "Eastern Sierras",
+    route_photo: "https://www.breakingthecycle.education/wp-content/uploads/2018/01/map-baha.jpg",
+    total_mileage: 480,
+    total_vert: 60000,
+    daily_mileage: 30,
+    est_total_weeks: 3,
+    departure_city: "Mammoth Lakes",
+    final_city: "Mammoth Lakes",
+    departure_month: "July",
+    about_trip: 
+        "Sick trip through the Eastern Sierras!  Gonna be hilly and rough but super fun!!"
+)
+
+t5 = Trip.create(
+    creator_id: u3.id,
+    link: "https://bikepacking.com/routes/olympic-bridges-overnighter/",
+    trip_name: "Olympic Bridges Overnighter",
+    location: "Olympic National Park",
+    route_photo: "https://www.breakingthecycle.education/wp-content/uploads/2018/01/map-baha.jpg",
+    total_mileage: 39,
+    total_vert: 2890,
+    daily_mileage: 20,
+    est_total_weeks: 0,
+    departure_city: "Vance Creek",
+    final_city: "Vance Creek",
+    departure_month: "August",
+    about_trip: 
+        "Quick little overnighter to check out some cool bridges in Olympic National Forest"
+)
+
+t6 = Trip.create(
+    creator_id: u4.id,
+    link: "https://bikepacking.com/routes/bikepacking-south-africa-the-dragons-spine/",
+    trip_name: "The Dragon's Spine",
+    location: "South Africa",
+    route_photo: "https://www.breakingthecycle.education/wp-content/uploads/2018/01/map-baha.jpg",
+    total_mileage: 2500,
+    total_vert: 155388,
+    daily_mileage: 40,
+    est_total_weeks: 9,
+    departure_city: "Zimbabwe",
+    final_city: "Cape Town",
+    departure_month: "January",
+    about_trip: 
+        "Big trip planning in the books!  Maybe January 2024?  Gonna be epic."
 )
 
 j1 = UserTripJoin.create(
@@ -106,8 +174,43 @@ j4 = UserTripJoin.create(
 )
 
 j5 = UserTripJoin.create(
-    user_id: u4.id,
+    user_id: u2.id,
     trip_id: t2.id 
+)
+
+j6 = UserTripJoin.create(
+    user_id: u4.id,
+    trip_id: t3.id 
+)
+
+j7 = UserTripJoin.create(
+    user_id: u4.id,
+    trip_id: t4.id 
+)
+
+j8 = UserTripJoin.create(
+    user_id: u3.id,
+    trip_id: t5.id 
+)
+
+j9 = UserTripJoin.create(
+    user_id: u1.id,
+    trip_id: t6.id 
+)
+
+j10 = UserTripJoin.create(
+    user_id: u3.id,
+    trip_id: t3.id 
+)
+
+j11 = UserTripJoin.create(
+    user_id: u4.id,
+    trip_id: t6.id 
+)
+
+j12 = UserTripJoin.create(
+    user_id: u2.id,
+    trip_id: t4.id 
 )
 
 b1 = Bike.create(
