@@ -150,6 +150,7 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
 
     // cause state likes to be a lil bitch
     const cheaterProp = trip
+    const linkString = trip.link
     //console.log(cheaterProp.trip_photo_file)
 
     const bigClassBlack = 'mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white'
@@ -194,9 +195,10 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                 <br/>
                 {trip.link ?
                     <p>extra deets:  
-                        <Link to={trip.link} className={linkClass}>
+                        {/* <link to={trip.link} className={linkClass}>
                             {trip.link}
-                        </Link>
+                        </link> */}
+                        <a target="_blank" href={trip.link} className={linkClass}>{trip.link}</a>
                     </p>
                     :
                     <></>

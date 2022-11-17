@@ -58,8 +58,8 @@ function Login({onUpdateUser}) {
 
     return (
         <div className='p-4'> 
-            <h1 className={headingClass}><span className={gradiantClass}> Welcome to Cycling Craziness  </span></h1>
-            <h1 className={headingClass}><small className={smallerClass}>log in to find your bikepacking squad</small></h1>
+            <h1 className={headingClass}><span className={gradiantClass}> welcome to cycling crazies  </span></h1>
+            <h1 className={headingClass}><small className={smallerClass}><i>log in to find your bikepacking squad</i></small></h1>
             <form onSubmit={onSubmit} className="mb-5">
             <label className={labelClass}>
                 username:
