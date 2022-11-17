@@ -57,9 +57,11 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
                         clickDrama()
                     });
                 } else {
-                //Display errors
-                // TO DO: ERROR POP UP
-                    res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+                    //res.json().then(json => setErrors(Object.entries(json.errors)))
+                    res.json().then(retErrors => {
+                        setErrors(Object.entries(retErrors.errors))
+                        console.log(retErrors)
+                    })
                 }
             })
     }
@@ -120,17 +122,22 @@ export default function TripDeetsPage({currentUser, allJoins, fetchJoinsData}){
     }
 
     function deleteTripDrama() {
+
         fetch(`/trips/${trip.id}`,{
             method:'DELETE'
-          })
-          .then(res => {
-              if(res.ok){
+        })
+        .then(res => {
+            if (res.ok) {
                 console.log(`${currentUser.username} is deleting ${trip.trip_name}!? stupid bitch`)
                 navigate('/browsetrips')
-              }else {
-                res.json().then(json => setErrors(Object.entries(json.errors)))
-              }
-          })
+            } else {
+                //res.json().then(json => setErrors(Object.entries(json.errors)))
+                res.json().then(retErrors => {
+                    setErrors(Object.entries(retErrors.errors))
+                    console.log(retErrors)
+                })
+            }
+        })
     }
 
     // just a little state situation to make condional rendering work

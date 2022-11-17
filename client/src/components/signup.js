@@ -40,7 +40,7 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
             } else {
                 // TO DO: ERROR POP UP
                 res.json().then(retErrors => {
-                    //setErrors(Object.entries(json.errors))
+                    setErrors(Object.entries(retErrors.errors))
                     console.log(retErrors)
                 })
             }
@@ -49,6 +49,10 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
 
     function handleDoneEditing() {
         navigate('/browsetrips')
+    }
+
+    function navToLI() {
+        navigate('/')
     }
 
     const handleChange = (e) => {
@@ -128,6 +132,11 @@ export default function SignUp({onUpdateUser, onUpdatingIdentity}) {
                             :
                             null
                         }
+                        <div className='p-4'>
+                            <button className={blueButtonClass} onClick={navToLI}>
+                                ← back to login page
+                            </button>
+                        </div>
                     </div>
                 }
         </div>
